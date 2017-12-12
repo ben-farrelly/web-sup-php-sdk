@@ -9,9 +9,6 @@ use Aws\MockHandler;
 use Serato\UserProfileSdk\Queue\Sqs;
 use Serato\UserProfileSdk\Message\AbstractMessage;
 
-#use Monolog\Logger;
-#use Monolog\Handler\StreamHandler;
-
 class SqsTest extends PHPUnitTestCase
 {
     public function testSendMessage()
