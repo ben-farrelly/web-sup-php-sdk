@@ -18,7 +18,8 @@ class TestMessage extends AbstractMessage
         return $this->setParam('arrayValue', $val);
     }
 
-    public function getScalarValue(){
+    public function getScalarValue()
+    {
         return $this->getParam('scalarValue');
     }
 
