@@ -5,7 +5,14 @@ use Serato\UserProfileSdk\Message\AbstractMessage;
 use Serato\UserProfileSdk\Exception\InvalidMessageBodyException;
 
 /**
- * Base class for interacting with a message queue
+ * Base class for interacting with a message queue.
+ *
+ * All concrete queue implementations should inherit from this class.
+ *
+ * **Abstract methods:**
+ *
+ * - `sendMessage` : sends an `AbstractMessage` instance to the queue.
+ * - `createMessage` : converts a raw queue message back into it's source `AbstractMessage` instance.
  */
 abstract class AbstractMessageQueue
 {
@@ -21,7 +28,7 @@ abstract class AbstractMessageQueue
     abstract public function sendMessage(AbstractMessage $message);
 
     /**
-     * Return an AbstractMessage message from a raw queue message
+     * Return an `AbstractMessage` instance from a raw queue message
      *
      * @param mixed   $body    A raw queue message
      * @return bool     Indicates delivery success
@@ -30,7 +37,7 @@ abstract class AbstractMessageQueue
     abstract public function createMessage($body);
 
     /**
-     * Wrap a AbstractMessage instance's body with the name of the child
+     * Wrap a `AbstractMessage` instance's body with the name of the child
      * message class into an array suitable for sending to the queue.
      *
      * @param AbstractMessage   $message    Message instance
@@ -45,7 +52,7 @@ abstract class AbstractMessageQueue
     }
 
     /**
-     * Return an AbstractMessage message from a user ID and an array of data that
+     * Return an `AbstractMessage` message from a user ID and an array of data that
      * represents a single message body read from the queue.
      *
      * @param int       $userId         User ID

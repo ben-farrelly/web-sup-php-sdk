@@ -3,6 +3,12 @@ namespace Serato\UserProfileSdk\Message;
 
 use Serato\UserProfileSdk\Queue\AbstractMessageQueue;
 
+/**
+ * Base class from which all concrete message implementations much inherit.
+ *
+ * Child classes need only implement `get` and `set` methods to populate the
+ * `AbstractMessage::params` property.
+ */
 class AbstractMessage
 {
     /* @var array */
