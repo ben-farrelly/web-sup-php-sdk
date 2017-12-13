@@ -6,6 +6,6 @@
 /.idea/*
 composer.lock
 /docs
-/tests/reports
+/reports
 debug.log
 error.log
