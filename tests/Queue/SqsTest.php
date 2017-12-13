@@ -20,12 +20,11 @@ class SqsTest extends PHPUnitTestCase
         $results = [
             ['QueueUrl'  => 'my-queue-url'],
             ['MessageId' => 'TestMessageId1'],
-            ['QueueUrl'  => 'my-queue-url'],
             ['MessageId' => 'TestMessageId2']
         ];
         $queue = new Sqs($this->getMockedAwsSdk($results), 'my-queue-name');
 
-        # Test of one syntax form
+        # Test of one syntax forms
         $this->assertEquals('TestMessageId1', $queue->sendMessage($mockMessage));
         # And the other form
         $this->assertEquals('TestMessageId2', $mockMessage->send($queue));
