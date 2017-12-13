@@ -8,6 +8,8 @@ use Aws\Result;
 use Aws\MockHandler;
 use Serato\UserProfileSdk\Queue\Sqs;
 use Serato\UserProfileSdk\Message\AbstractMessage;
+use Serato\UserProfileSdk\Test\Queue\TestMessage;
+use Ramsey\Uuid\Uuid;
 
 class SqsTest extends PHPUnitTestCase
 {
@@ -16,10 +18,12 @@ class SqsTest extends PHPUnitTestCase
         $mockMessage = $this->getMockForAbstractClass(AbstractMessage::class, [111]);
 
         $results = [
+            ['QueueUrl'  => 'my-queue-url'],
             ['MessageId' => 'TestMessageId1'],
+            ['QueueUrl'  => 'my-queue-url'],
             ['MessageId' => 'TestMessageId2']
         ];
-        $queue = new Sqs($this->getAwsSdk($results), 'my-queue-url');
+        $queue = new Sqs($this->getMockedAwsSdk($results), 'my-queue-name');
 
         # Test of one syntax form
         $this->assertEquals('TestMessageId1', $queue->sendMessage($mockMessage));
@@ -32,7 +36,7 @@ class SqsTest extends PHPUnitTestCase
      */
     public function testCreateMessageWithInvalidMd5()
     {
-        $queue = new Sqs($this->getAwsSdk(), 'my-queue-url');
+        $queue = new Sqs($this->getMockedAwsSdk(), 'my-queue-name');
         $queue->createMessage([
             'Body'      => 'A message body',
             'MD5OfBody' => md5('A different message body')
@@ -41,7 +45,11 @@ class SqsTest extends PHPUnitTestCase
 
     public function testCreateMessage()
     {
-        $queue = new Sqs($this->getAwsSdk(), 'my-queue-url');
+        $results = [
+            ['QueueUrl'  => 'my-queue-url'],
+        ];
+
+        $queue = new Sqs($this->getMockedAwsSdk($results), 'my-queue-url');
 
         # We need to construct a valid `Result` array to pass into the
         # Sqs::createMessage method.
@@ -68,10 +76,65 @@ class SqsTest extends PHPUnitTestCase
     }
 
     /**
+     * @group aws-integration
+     */
+    public function testAwsIntegrationTest()
+    {
+        $userId = 555;
+        $scalarMessageValue = 'A scalar value';
+        $arrayMessageValue = ['param1' => 'val1', 'param2' => 22];
+
+        $queue_name = 'SeratoUserProfile-Events-Test-' . Uuid::uuid4()->toString();
+
+        # Credentials come from:
+        #  - credentials file on dev VMs
+        $sdk = new Sdk(['region' => 'us-east-1', 'version' => '2014-11-01']);
+
+        $supQueue = new Sqs($sdk, $queue_name);
+
+        # Send message via `Serato\UserProfileSdk\Queue\Sqs` instance
+        $messageId = TestMessage::create($userId)
+                        ->setScalarValue($scalarMessageValue)
+                        ->setArrayValue($arrayMessageValue)
+                        ->send($supQueue);
+
+        # Use the `Aws\Sdk` instance to receive the message
+        # (receiving messages is not the responsibility of the `Serato\UserProfileSdk` SDK)
+        $result = [];
+        $polls = 0;
+        $awsSqs = $sdk->createSqs(['version' => '2012-11-05']);
+        # Might need to poll the queue a few times before getting the message
+        # But limit to 5 attempts
+        while ($polls < 5 && (!isset($result['Messages']) || count($result['Messages']) === 0)) {
+            $result = $awsSqs->receiveMessage([
+                'WaitTimeSeconds'       => 20,
+                'MessageAttributeNames' => ['All'],
+                'QueueUrl'              => $supQueue->getQueueUrl()
+            ]);
+            $polls++;
+        }
+
+        $this->assertTrue(isset($result['Messages']) && count($result['Messages']) > 0);
+
+        if (isset($result['Messages']) && count($result['Messages']) > 0) {
+            $message = $result['Messages'][0];
+            $this->assertEquals($message['MessageId'], $messageId);
+
+            $testMessageReceived = $supQueue->createMessage($message);
+
+            $this->assertEquals($testMessageReceived->getScalarValue(), $scalarMessageValue);
+            $this->assertEquals($testMessageReceived->getArrayValue(), $arrayMessageValue);
+        }
+
+        # Delete the queue using the `Aws\Sdk` instance
+        $awsSqs->deleteQueue(['QueueUrl' => $supQueue->getQueueUrl()]);
+    }
+
+    /**
      * @param array $mockResults    An array of mock results to return from SDK clients
      * @return Sdk
      */
-    protected function getAwsSdk(array $mockResults = [])
+    protected function getMockedAwsSdk(array $mockResults = [])
     {
         $mock = new MockHandler();
         foreach ($mockResults as $result) {

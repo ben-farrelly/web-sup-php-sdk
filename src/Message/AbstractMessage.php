@@ -42,7 +42,7 @@ class AbstractMessage
      */
     public static function create($userId, array $params = [])
     {
-        return new self($userId, $params);
+        return new static($userId, $params);
     }
 
     /**
@@ -63,5 +63,29 @@ class AbstractMessage
     public function getUserId()
     {
         return $this->userId;
+    }
+
+    /**
+     * Set a parameter value
+     *
+     * @param string    $name   Parameter name
+     * @param mixed     $value  Parameter value
+     * @return self
+     */
+    protected function setParam($name, $value)
+    {
+        $this->params[$name] = $value;
+        return $this;
+    }
+
+    /**
+     * Get a parameter value
+     *
+     * @param string    $name   Parameter name
+     * @return null | mixed
+     */
+    protected function getParam($name)
+    {
+        return isset($this->params[$name]) ? $this->params[$name] : null;
     }
 }
