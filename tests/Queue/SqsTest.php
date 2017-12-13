@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use Aws\Sdk;
 use Aws\Result;
 use Aws\MockHandler;
+use Aws\Credentials\CredentialProvider;
 use Serato\UserProfileSdk\Queue\Sqs;
 use Serato\UserProfileSdk\Message\AbstractMessage;
 use Serato\UserProfileSdk\Test\Queue\TestMessage;
@@ -86,8 +87,19 @@ class SqsTest extends PHPUnitTestCase
         $queue_name = 'SeratoUserProfile-Events-Test-' . Uuid::uuid4()->toString();
 
         # Credentials come from:
-        #  - credentials file on dev VMs
-        $sdk = new Sdk(['region' => 'us-east-1', 'version' => '2014-11-01']);
+        # - credentials file on dev VMs
+        # - .env files on build VMs
+
+        $sdk = new Sdk([
+            'region' => 'us-east-1',
+            'version' => '2014-11-01',
+            'credentials' => CredentialProvider::memoize(
+                CredentialProvider::chain(
+                    CredentialProvider::ini(),
+                    CredentialProvider::env()
+                )
+            )
+        ]);
 
         $supQueue = new Sqs($sdk, $queue_name);
 
