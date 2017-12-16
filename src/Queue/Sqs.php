@@ -2,14 +2,15 @@
 namespace Serato\UserProfileSdk\Queue;
 
 use Aws\Sdk;
+use Aws\Sqs\SqsClient;
 use Serato\UserProfileSdk\Message\AbstractMessage;
 use Serato\UserProfileSdk\Exception\InvalidMessageBodyException;
 use Aws\Sqs\Exception\SqsException;
 
 class Sqs extends AbstractMessageQueue
 {
-    /* @var Sdk */
-    private $awsSdk;
+    /* @var SqsClient */
+    private $sqsClient;
 
     /* @var string */
     private $sqsQueueName;
@@ -20,12 +21,12 @@ class Sqs extends AbstractMessageQueue
     /**
      * Constructs the instance
      *
-     * @param Sdk       $awsSdk         An AWS SDK instance
-     * @param string    $sqsQueueName   Name of SQS queue
+     * @param SqsClient     $sqsClient      An AWS SDK SQS client instance
+     * @param string        $sqsQueueName   Name of SQS queue
      */
-    public function __construct(Sdk $awsSdk, $sqsQueueName, $sqsQueueUrl = null)
+    public function __construct(SqsClient $sqsClient, $sqsQueueName, $sqsQueueUrl = null)
     {
-        $this->awsSdk = $awsSdk;
+        $this->sqsClient = $sqsClient;
         $this->sqsQueueName = $sqsQueueName;
     }
 
@@ -35,8 +36,7 @@ class Sqs extends AbstractMessageQueue
     public function sendMessage(AbstractMessage $message)
     {
         $result = $this
-                    ->awsSdk
-                    ->createSqs(['version' => '2012-11-05'])
+                    ->sqsClient
                     ->sendMessage($this->messageToSqsSendParams($message));
 
         return $result['MessageId'];
@@ -89,13 +89,12 @@ class Sqs extends AbstractMessageQueue
     public function getQueueUrl()
     {
         if ($this->sqsQueueUrl === null) {
-            $sqsClient = $this->awsSdk->createSqs(['version' => '2012-11-05']);
             try {
-                $result = $sqsClient->getQueueUrl(['QueueName' => $this->sqsQueueName]);
+                $result = $this->sqsClient->getQueueUrl(['QueueName' => $this->sqsQueueName]);
                 $this->sqsQueueUrl = $result['QueueUrl'];
             } catch (SqsException $e) {
                 if ($e->getAwsErrorCode() === 'AWS.SimpleQueueService.NonExistentQueue') {
-                    $result = $sqsClient->createQueue([
+                    $result = $this->sqsClient->createQueue([
                         'QueueName' => $this->sqsQueueName,
                         'Attributes' => ['VisibilityTimeout' => 60]
                     ]);
