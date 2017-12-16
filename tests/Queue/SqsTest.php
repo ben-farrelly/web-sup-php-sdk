@@ -23,7 +23,10 @@ class SqsTest extends PHPUnitTestCase
             ['MessageId' => 'TestMessageId1'],
             ['MessageId' => 'TestMessageId2']
         ];
-        $queue = new Sqs($this->getMockedAwsSdk($results), 'my-queue-name');
+        $queue = new Sqs(
+            $this->getMockedAwsSdk($results)->createSqs(['version' => '2012-11-05']),
+            'my-queue-name'
+        );
 
         # Test of one syntax forms
         $this->assertEquals('TestMessageId1', $queue->sendMessage($mockMessage));
@@ -36,7 +39,10 @@ class SqsTest extends PHPUnitTestCase
      */
     public function testCreateMessageWithInvalidMd5()
     {
-        $queue = new Sqs($this->getMockedAwsSdk(), 'my-queue-name');
+        $queue = new Sqs(
+            $this->getMockedAwsSdk()->createSqs(['version' => '2012-11-05']),
+            'my-queue-name'
+        );
         $queue->createMessage([
             'Body'      => 'A message body',
             'MD5OfBody' => md5('A different message body')
@@ -49,7 +55,10 @@ class SqsTest extends PHPUnitTestCase
             ['QueueUrl'  => 'my-queue-url'],
         ];
 
-        $queue = new Sqs($this->getMockedAwsSdk($results), 'my-queue-url');
+        $queue = new Sqs(
+            $this->getMockedAwsSdk($results)->createSqs(['version' => '2012-11-05']),
+            'my-queue-url'
+        );
 
         # We need to construct a valid `Result` array to pass into the
         # Sqs::createMessage method.
@@ -84,11 +93,11 @@ class SqsTest extends PHPUnitTestCase
         $scalarMessageValue = 'A scalar value';
         $arrayMessageValue = ['param1' => 'val1', 'param2' => 22];
 
-        $queue_name = 'SeratoUserProfile-Events-Test-' . Uuid::uuid4()->toString();
+        $queueName = 'SeratoUserProfile-Events-Test-' . Uuid::uuid4()->toString();
 
         # Credentials come from:
         # - credentials file on dev VMs
-        # - .env files on build VMs
+        # - .env variables on build VMs
 
         $sdk = new Sdk([
             'region' => 'us-east-1',
@@ -100,8 +109,9 @@ class SqsTest extends PHPUnitTestCase
                 )
             )
         ]);
+        $awsSqs = $sdk->createSqs(['version' => '2012-11-05']);
 
-        $supQueue = new Sqs($sdk, $queue_name);
+        $supQueue = new Sqs($awsSqs, $queueName);
 
         # Send message via `Serato\UserProfileSdk\Queue\Sqs` instance
         $messageId = TestMessage::create($userId)
@@ -113,7 +123,6 @@ class SqsTest extends PHPUnitTestCase
         # (receiving messages is not the responsibility of the `Serato\UserProfileSdk` SDK)
         $result = [];
         $polls = 0;
-        $awsSqs = $sdk->createSqs(['version' => '2012-11-05']);
         # Might need to poll the queue a few times before getting the message
         # But limit to 5 attempts
         while ($polls < 5 && (!isset($result['Messages']) || count($result['Messages']) === 0)) {
@@ -137,7 +146,7 @@ class SqsTest extends PHPUnitTestCase
             $this->assertEquals($testMessageReceived->getArrayValue(), $arrayMessageValue);
         }
 
-        # Delete the queue using the `Aws\Sdk` instance
+        # Delete the queue using the AWS SDK
         $awsSqs->deleteQueue(['QueueUrl' => $supQueue->getQueueUrl()]);
     }
 
