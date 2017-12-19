@@ -4,7 +4,7 @@ namespace Serato\UserProfileSdk\Message;
 use Serato\UserProfileSdk\Message\AbstractMessage;
 
 /**
- * User downloaded softwares.
+ * User's downloaded softwares.
  * Find information about available options
  * for `software`, `OS` and `version` at:
  * https://github.com/serato/web-sup-php-app

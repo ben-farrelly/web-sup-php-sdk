@@ -4,7 +4,7 @@ namespace Serato\UserProfileSdk\Message;
 use Serato\UserProfileSdk\Message\AbstractMessage;
 
 /**
- * User subscriptions update.
+ * User's subscription products.
  * Find information about available
  * options for `plan` and `expiry` at:
  * https://github.com/serato/web-sup-php-app
