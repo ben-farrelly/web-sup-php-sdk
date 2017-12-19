@@ -20,7 +20,7 @@ class SoftwareDownload extends AbstractMessage
      * @param string $software
      * @return SoftwareDownload
      */
-    public function addSoftware($software)
+    public function add($software)
     {
         return $this->setParam(self::SOFTWARE_PARAM_NAME, $software);
     }
@@ -39,7 +39,7 @@ class SoftwareDownload extends AbstractMessage
      * @param string $os
      * @return SoftwareDownload
      */
-    public function setSoftwareOS($os)
+    public function setOS($os)
     {
         return $this->setParam(self::SOFTWARE_OS_PARAM_NAME, $os);
     }
@@ -48,7 +48,7 @@ class SoftwareDownload extends AbstractMessage
      * Get Operating System for downloaded software
      * @return string
      */
-    public function getSoftwareOS()
+    public function getOS()
     {
         return $this->getParam(self::SOFTWARE_OS_PARAM_NAME);
     }
@@ -58,7 +58,7 @@ class SoftwareDownload extends AbstractMessage
      * @param string $version
      * @return SoftwareDownload
      */
-    public function setSoftwareVersion($version)
+    public function setVersion($version)
     {
         return $this->setParam(self::SOFTWARE_VER_PARAM_NAME, $version);
     }
@@ -67,7 +67,7 @@ class SoftwareDownload extends AbstractMessage
      * Get version for downloaded software
      * @return string
      */
-    public function getSoftwareVersion()
+    public function getVersion()
     {
         return $this->getParam(self::SOFTWARE_VER_PARAM_NAME);
     }
