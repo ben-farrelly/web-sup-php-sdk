@@ -16,20 +16,20 @@ class SoftwareDownload extends AbstractMessage
     const SOFTWARE_OS_PARAM_NAME = 'os';
 
     /**
-     * Add software to user
+     * Specify downloaded software name
      * @param string $software
      * @return SoftwareDownload
      */
-    public function add($software)
+    public function setSoftwareName($software)
     {
         return $this->setParam(self::SOFTWARE_PARAM_NAME, $software);
     }
 
     /**
-     * Get downloaded software
+     * Get downloaded software name
      * @return string
      */
-    public function getSoftware()
+    public function getSoftwareName()
     {
         return $this->getParam(self::SOFTWARE_PARAM_NAME);
     }

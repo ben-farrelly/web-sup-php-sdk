@@ -14,11 +14,11 @@ class SoftwareDownloadTest extends PHPUnitTestCase
         $version = '1.9.10';
 
         $softwareDownload = SoftwareDownload::create($userId)
-                        ->add($software)
+                        ->setSoftwareName($software)
                         ->setOS($os)
                         ->setVersion($version);
 
-        $this->assertEquals($software, $softwareDownload->getSoftware());
+        $this->assertEquals($software, $softwareDownload->getSoftwareName());
         $this->assertEquals($os, $softwareDownload->getOS());
         $this->assertEquals($version, $softwareDownload->getVersion());
     }
