@@ -34,7 +34,7 @@ abstract class AbstractMessageQueue
      * @return bool     Indicates delivery success
      * @throws InvalidMessageBodyException
      */
-    abstract public function createMessage($body);
+    abstract public static function createMessage($body);
 
     /**
      * Wrap a `AbstractMessage` instance's body with the name of the child
