@@ -39,11 +39,7 @@ class SqsTest extends PHPUnitTestCase
      */
     public function testCreateMessageWithInvalidMd5()
     {
-        $queue = new Sqs(
-            $this->getMockedAwsSdk()->createSqs(['version' => '2012-11-05']),
-            'my-queue-name'
-        );
-        $queue->createMessage([
+        Sqs::createMessage([
             'Body'      => 'A message body',
             'MD5OfBody' => md5('A different message body')
         ]);
@@ -78,7 +74,7 @@ class SqsTest extends PHPUnitTestCase
             'MessageAttributes' => $sqsSendParams['MessageAttributes']
         ];
 
-        $receivedMockMessage = $queue->createMessage($sqsReceiveResult);
+        $receivedMockMessage = Sqs::createMessage($sqsReceiveResult);
 
         $this->assertEquals($receivedMockMessage->getUserId(), $userId);
         $this->assertEquals($receivedMockMessage->getParams(), $params);
@@ -140,7 +136,7 @@ class SqsTest extends PHPUnitTestCase
             $message = $result['Messages'][0];
             $this->assertEquals($message['MessageId'], $messageId);
 
-            $testMessageReceived = $supQueue->createMessage($message);
+            $testMessageReceived = Sqs::createMessage($message);
 
             $this->assertEquals($testMessageReceived->getScalarValue(), $scalarMessageValue);
             $this->assertEquals($testMessageReceived->getArrayValue(), $arrayMessageValue);

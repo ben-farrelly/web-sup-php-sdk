@@ -43,9 +43,13 @@ class Sqs extends AbstractMessageQueue
     }
 
     /**
-     * {@inheritdoc}
+     * Return an `AbstractMessage` instance from a raw queue message
+     *
+     * @param mixed   $body    A raw queue message
+     * @return bool     Indicates delivery success
+     * @throws InvalidMessageBodyException
      */
-    public function createMessage($sqsMessage)
+    public static function createMessage($sqsMessage)
     {
         if (md5($sqsMessage['Body']) !== $sqsMessage['MD5OfBody']) {
             throw new InvalidMessageBodyException(
@@ -54,7 +58,7 @@ class Sqs extends AbstractMessageQueue
             );
         }
 
-        return $this->getMessageFromWrappedBody(
+        return self::getMessageFromWrappedBody(
             (int)$sqsMessage['MessageAttributes']['UserId']['StringValue'],
             json_decode($sqsMessage['Body'], true)
         );
@@ -96,7 +100,11 @@ class Sqs extends AbstractMessageQueue
                 if ($e->getAwsErrorCode() === 'AWS.SimpleQueueService.NonExistentQueue') {
                     $result = $this->sqsClient->createQueue([
                         'QueueName' => $this->sqsQueueName,
-                        'Attributes' => ['VisibilityTimeout' => 60]
+                        'Attributes' => [
+                            'VisibilityTimeout'             => 60,
+                            # Create queue with long polling enabled
+                            'ReceiveMessageWaitTimeSeconds' => 20
+                        ]
                     ]);
                     $this->sqsQueueUrl = $result['QueueUrl'];
                 } else {
