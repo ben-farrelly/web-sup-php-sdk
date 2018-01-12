@@ -28,15 +28,6 @@ abstract class AbstractMessageQueue
     abstract public function sendMessage(AbstractMessage $message);
 
     /**
-     * Return an `AbstractMessage` instance from a raw queue message
-     *
-     * @param mixed   $body    A raw queue message
-     * @return bool     Indicates delivery success
-     * @throws InvalidMessageBodyException
-     */
-    abstract public static function createMessage($body);
-
-    /**
      * Wrap a `AbstractMessage` instance's body with the name of the child
      * message class into an array suitable for sending to the queue.
      *

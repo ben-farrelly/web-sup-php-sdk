@@ -43,7 +43,11 @@ class Sqs extends AbstractMessageQueue
     }
 
     /**
-     * {@inheritdoc}
+     * Return an `AbstractMessage` instance from a raw queue message
+     *
+     * @param mixed   $body    A raw queue message
+     * @return bool     Indicates delivery success
+     * @throws InvalidMessageBodyException
      */
     public static function createMessage($sqsMessage)
     {
