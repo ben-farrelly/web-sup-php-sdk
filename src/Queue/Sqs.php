@@ -58,9 +58,17 @@ class Sqs extends AbstractMessageQueue
             );
         }
 
+        $body = json_decode($sqsMessage['Body'], true);
+
+        if ($body === null) {
+            throw new InvalidMessageBodyException(
+                'Message `Body` does not contain a valid JSON encoded string.'
+            );
+        }
+
         return self::getMessageFromWrappedBody(
             (int)$sqsMessage['MessageAttributes']['UserId']['StringValue'],
-            json_decode($sqsMessage['Body'], true)
+            $body
         );
     }
 
