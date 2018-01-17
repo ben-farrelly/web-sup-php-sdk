@@ -28,6 +28,9 @@ class Sqs extends AbstractMessageQueue
     {
         $this->sqsClient = $sqsClient;
         $this->sqsQueueName = $sqsQueueName;
+        if ($sqsQueueUrl !== null) {
+            $this->sqsQueueUrl = $sqsQueueUrl;
+        }
     }
 
     /**
