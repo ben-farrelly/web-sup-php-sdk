@@ -11,20 +11,20 @@ class UserUpdateTest extends PHPUnitTestCase
         $userId = 123;
         $email = 'test@serato.com';
         $daw = 'dawOption';
-        $hardware = 'intro';
+        $hardware = true;
         $language = 'en';
         $country = 'US';
 
         $userUpdate = UserUpdate::create($userId)
                         ->setEmail($email)
                         ->setDaw($daw)
-                        ->setDjHardware($hardware)
+                        ->setHasDjHardware($hardware)
                         ->setLanguage($language)
                         ->setCountry($country);
 
         $this->assertEquals($email, $userUpdate->getEmail());
         $this->assertEquals($daw, $userUpdate->getDaw());
-        $this->assertEquals($hardware, $userUpdate->getDjHardware());
+        $this->assertEquals($hardware, $userUpdate->getHasDjHardware());
         $this->assertEquals($language, $userUpdate->getLanguage());
         $this->assertEquals($country, $userUpdate->getCountry());
     }
