@@ -18,13 +18,13 @@ class UserUpdateTest extends PHPUnitTestCase
         $userUpdate = UserUpdate::create($userId)
                         ->setEmail($email)
                         ->setDaw($daw)
-                        ->setHardware($hardware)
+                        ->setDjHardware($hardware)
                         ->setLanguage($language)
                         ->setCountry($country);
 
         $this->assertEquals($email, $userUpdate->getEmail());
         $this->assertEquals($daw, $userUpdate->getDaw());
-        $this->assertEquals($hardware, $userUpdate->getHardware());
+        $this->assertEquals($hardware, $userUpdate->getDjHardware());
         $this->assertEquals($language, $userUpdate->getLanguage());
         $this->assertEquals($country, $userUpdate->getCountry());
     }

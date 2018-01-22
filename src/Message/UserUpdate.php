@@ -13,7 +13,7 @@ class UserUpdate extends AbstractMessage
 {
     const EMAIL_PARAM_NAME = 'email';
     const DAW_PARAM_NAME = 'daw';
-    const HARDWARE_PARAM_NAME = 'hardware';
+    const DJ_HARDWARE_PARAM_NAME = 'dj_hardware';
     const LANGUAGE_PARAM_NAME = 'language';
     const COUNTRY_PARAM_NAME = 'country';
 
@@ -56,22 +56,22 @@ class UserUpdate extends AbstractMessage
     }
 
     /**
-     * Set user hardware
+     * Set user DJ hardware
      * @param string $hardware
      * @return UserUpdate
      */
-    public function setHardware($hardware)
+    public function setDjHardware($hardware)
     {
-        return $this->setParam(self::HARDWARE_PARAM_NAME, $hardware);
+        return $this->setParam(self::DJ_HARDWARE_PARAM_NAME, $hardware);
     }
 
     /**
-     * Get user hardware
+     * Get user DJ hardware
      * @return string
      */
-    public function getHardware()
+    public function getDjHardware()
     {
-        return $this->getParam(self::HARDWARE_PARAM_NAME);
+        return $this->getParam(self::DJ_HARDWARE_PARAM_NAME);
     }
 
     /**
