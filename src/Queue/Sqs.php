@@ -9,7 +9,8 @@ use Aws\Sqs\Exception\SqsException;
 
 class Sqs extends AbstractMessageQueue
 {
-    const MESSAGE_GROUP_ID = 'user_profile_events';
+    const FIFO_QUEUE        = true;
+    const MESSAGE_GROUP_ID  = 'user_profile_events';
 
     /* @var SqsClient */
     private $sqsClient;
@@ -86,17 +87,19 @@ class Sqs extends AbstractMessageQueue
      */
     public function messageToSqsSendParams(AbstractMessage $message)
     {
-        return [
-            'MessageAttributes' => [
-                'UserId' => [
-                    'DataType'      => 'Number',
-                    'StringValue'   => (string)$message->getUserId()
-                ]
+        return array_merge(
+            [
+                'MessageAttributes' => [
+                    'UserId' => [
+                        'DataType'      => 'Number',
+                        'StringValue'   => (string)$message->getUserId()
+                    ]
+                ],
+                'MessageBody'       => json_encode($this->getWrappedMessageBody($message)),
+                'QueueUrl'          => $this->getQueueUrl()
             ],
-            'MessageBody'       => json_encode($this->getWrappedMessageBody($message)),
-            'QueueUrl'          => $this->getQueueUrl(),
-            'MessageGroupId'    => self::MESSAGE_GROUP_ID
-        ];
+            (self::FIFO_QUEUE ? ['MessageGroupId' => self::MESSAGE_GROUP_ID] : [])
+        );
     }
 
     /**
@@ -108,20 +111,22 @@ class Sqs extends AbstractMessageQueue
     {
         if ($this->sqsQueueUrl === null) {
             try {
-                $result = $this->sqsClient->getQueueUrl(['QueueName' => $this->sqsQueueName]);
+                $result = $this->sqsClient->getQueueUrl(['QueueName' => $this->getRealQueueName()]);
                 $this->sqsQueueUrl = $result['QueueUrl'];
             } catch (SqsException $e) {
                 if ($e->getAwsErrorCode() === 'AWS.SimpleQueueService.NonExistentQueue') {
+                    $attributes = [
+                        'VisibilityTimeout'             => 60,
+                        # Create queue with long polling enabled
+                        'ReceiveMessageWaitTimeSeconds' => 20
+                    ];
+                    if (self::FIFO_QUEUE) {
+                        $attributes['FifoQueue'] = 'true';
+                        $attributes['ContentBasedDeduplication'] = 'true';
+                    }
                     $result = $this->sqsClient->createQueue([
-                        'QueueName' => $this->sqsQueueName,
-                        'Attributes' => [
-                            'VisibilityTimeout'             => 60,
-                            # Create queue with long polling enabled
-                            'ReceiveMessageWaitTimeSeconds' => 20,
-                            # Configure as FIFO queue
-                            'FifoQueue'                     => true,
-                            'ContentBasedDeduplication'     => true
-                        ]
+                        'QueueName' => $this->getRealQueueName(),
+                        'Attributes' => $attributes
                     ]);
                     $this->sqsQueueUrl = $result['QueueUrl'];
                 } else {
@@ -130,5 +135,13 @@ class Sqs extends AbstractMessageQueue
             }
         }
         return $this->sqsQueueUrl;
+    }
+
+    /**
+     * @return string
+     */
+    private function getRealQueueName()
+    {
+        return $this->sqsQueueName. (self::FIFO_QUEUE ? '.fifo' : '');
     }
 }
