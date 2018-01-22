@@ -9,6 +9,8 @@ use Aws\Sqs\Exception\SqsException;
 
 class Sqs extends AbstractMessageQueue
 {
+    const MESSAGE_GROUP_ID = 'user_profile_events';
+
     /* @var SqsClient */
     private $sqsClient;
 
@@ -91,8 +93,9 @@ class Sqs extends AbstractMessageQueue
                     'StringValue'   => (string)$message->getUserId()
                 ]
             ],
-            'MessageBody'   => json_encode($this->getWrappedMessageBody($message)),
-            'QueueUrl'      => $this->getQueueUrl()
+            'MessageBody'       => json_encode($this->getWrappedMessageBody($message)),
+            'QueueUrl'          => $this->getQueueUrl(),
+            'MessageGroupId'    => self::MESSAGE_GROUP_ID
         ];
     }
 
@@ -114,7 +117,10 @@ class Sqs extends AbstractMessageQueue
                         'Attributes' => [
                             'VisibilityTimeout'             => 60,
                             # Create queue with long polling enabled
-                            'ReceiveMessageWaitTimeSeconds' => 20
+                            'ReceiveMessageWaitTimeSeconds' => 20,
+                            # Configure as FIFO queue
+                            'FifoQueue'                     => true,
+                            'ContentBasedDeduplication'     => true
                         ]
                     ]);
                     $this->sqsQueueUrl = $result['QueueUrl'];
