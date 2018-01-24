@@ -11,44 +11,60 @@ use Serato\UserProfileSdk\Message\AbstractMessage;
  */
 class PermanentLicense extends AbstractMessage
 {
-    const LICENSE_ADD_PARAM_NAME = 'added-license';
-    const LICENSE_REMOVE_PARAM_NAME = 'removed-license';
+    const LICENSE_TYPE_ID_PARAM_NAME = 'license-type-id';
+    const LICENSE_ACTION_PARAM_NAME = 'license-action';
+
+    const ADD = 'license-action-add';
+    const REMOVE = 'license-action-remove';
 
     /**
-     * Add license to user
-     * @param string $licenseId
-     * @return PermanentLicense
+     * {@inheritdoc}
      */
-    public function add($licenseId)
+    public function __construct($userId, array $params = [])
     {
-        return $this->setParam(self::LICENSE_ADD_PARAM_NAME, $licenseId);
+        parent::__construct($userId, $params);
+        $this->setParam(self::LICENSE_ACTION_PARAM_NAME, self::ADD);
     }
 
     /**
-     * Get added license
+     * Set the license type id
+     *
+     * @param int $licenseTypeId
+     * @return self
+     */
+    public function setLicenseTypeId($licenseTypeId)
+    {
+        return $this->setParam(self::LICENSE_TYPE_ID_PARAM_NAME, $licenseTypeId);
+    }
+
+    /**
+     * Get the license type id
+     *
+     * @return int
+     */
+    public function getLicenseTypeId()
+    {
+        return $this->getParam(self::LICENSE_TYPE_ID_PARAM_NAME);
+    }
+
+    /**
+     * Set the license action
+     *
+     * @param string $action
+     * @return self
+     */
+    public function setLicenseAction($action)
+    {
+        return $this->setParam(self::LICENSE_ACTION_PARAM_NAME, $action);
+    }
+
+    /**
+     * Get the license action
+     *
      * @return string
      */
-    public function getAddedLicense()
+    public function getLicenseAction()
     {
-        return $this->getParam(self::LICENSE_ADD_PARAM_NAME);
-    }
-
-    /**
-     * Remove license from user
-     * @param string $licenseId
-     * @return PermanentLicense
-     */
-    public function remove($licenseId)
-    {
-        return $this->setParam(self::LICENSE_REMOVE_PARAM_NAME, $licenseId);
-    }
-
-    /**
-     * Get removed license
-     * @return string
-     */
-    public function getRemovedLicense()
-    {
-        return $this->getParam(self::LICENSE_REMOVE_PARAM_NAME);
+        return $this->getParam(self::LICENSE_ACTION_PARAM_NAME);
     }
 }
