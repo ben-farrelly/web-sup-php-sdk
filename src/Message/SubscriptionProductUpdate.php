@@ -15,9 +15,10 @@ class SubscriptionProductUpdate extends AbstractMessage
     const SUB_EXPIRY_PARAM_NAME = 'expiry';
 
     /**
-     * Set plan name for subscription
-     * @param string $planName
-     * @return SubscriptionProductUpdate
+     * Set the plan name for Subscription
+     *
+     * @param string    $planName  Subscription plan name
+     * @return self
      */
     public function setPlan($planName)
     {
@@ -25,7 +26,8 @@ class SubscriptionProductUpdate extends AbstractMessage
     }
 
     /**
-     * Get subscription plan name
+     * Get the plan name for Subscription
+     *
      * @return string
      */
     public function getPlan()
@@ -34,9 +36,12 @@ class SubscriptionProductUpdate extends AbstractMessage
     }
 
     /**
-     * Set expiry date for subscription
-     * @param string $expiryDate
-     * @return SubscriptionProductUpdate
+     * Set the expiry date for Subscription
+     *
+     * Date format: `YYYY-MM-DD`
+     *
+     * @param string    $expiryDate    Subscription expiry date
+     * @return self
      */
     public function setExpiry($expiryDate)
     {
@@ -44,7 +49,8 @@ class SubscriptionProductUpdate extends AbstractMessage
     }
 
     /**
-     * Get expiry date for subscription
+     * Get the expiry date for Subscription
+     *
      * @return string
      */
     public function getExpiry()

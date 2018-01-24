@@ -16,9 +16,10 @@ class SoftwareDownload extends AbstractMessage
     const SOFTWARE_OS_PARAM_NAME = 'os';
 
     /**
-     * Specify downloaded software name
-     * @param string $software
-     * @return SoftwareDownload
+     * Set the name of the software download
+     *
+     * @param string    $software   Software name
+     * @return self
      */
     public function setSoftwareName($software)
     {
@@ -26,7 +27,8 @@ class SoftwareDownload extends AbstractMessage
     }
 
     /**
-     * Get downloaded software name
+     * Get the name of the software download
+     *
      * @return string
      */
     public function getSoftwareName()
@@ -35,9 +37,10 @@ class SoftwareDownload extends AbstractMessage
     }
 
     /**
-     * Set Operating System for downloaded software
-     * @param string $os
-     * @return SoftwareDownload
+     * Set the operating system of the software download
+     *
+     * @param string    $os    Operating system
+     * @return self
      */
     public function setOS($os)
     {
@@ -45,7 +48,8 @@ class SoftwareDownload extends AbstractMessage
     }
 
     /**
-     * Get Operating System for downloaded software
+     * Get the operating system of the software download
+     *
      * @return string
      */
     public function getOS()
@@ -54,9 +58,15 @@ class SoftwareDownload extends AbstractMessage
     }
 
     /**
-     * Set version for downloaded software
-     * @param string $version
-     * @return SoftwareDownload
+     * Set the version of the software download.
+     *
+     * Version is specfied in the format `major.minor.point`.
+     *
+     * eg. `1.0.1`, `1.20.5`, `2.1.11`
+     *
+     * @param   string  $version    Software version
+     *
+     * @return self
      */
     public function setVersion($version)
     {
@@ -64,7 +74,8 @@ class SoftwareDownload extends AbstractMessage
     }
 
     /**
-     * Get version for downloaded software
+     * Get the version of the software download
+     *
      * @return string
      */
     public function getVersion()

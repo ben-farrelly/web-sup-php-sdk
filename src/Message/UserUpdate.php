@@ -19,8 +19,9 @@ class UserUpdate extends AbstractMessage
 
     /**
      * Set user email address
-     * @param string $email
-     * @return UserUpdate
+     *
+     * @param string    $email  Email address
+     * @return self
      */
     public function setEmail($email)
     {
@@ -29,6 +30,7 @@ class UserUpdate extends AbstractMessage
 
     /**
      * Get user email address
+     *
      * @return string
      */
     public function getEmail()
@@ -38,8 +40,9 @@ class UserUpdate extends AbstractMessage
 
     /**
      * Set user primary DAW option
+     *
      * @param string $dawOption
-     * @return UserUpdate
+     * @return self
      */
     public function setDaw($dawOption)
     {
@@ -48,6 +51,7 @@ class UserUpdate extends AbstractMessage
 
     /**
      * Get user primary DAW option
+     *
      * @return string
      */
     public function getDaw()
@@ -57,8 +61,9 @@ class UserUpdate extends AbstractMessage
 
     /**
      * Sets whether or not the user has DJ hardware
+     *
      * @param bool $hardware
-     * @return UserUpdate
+     * @return self
      */
     public function setHasDjHardware($hardware)
     {
@@ -67,6 +72,7 @@ class UserUpdate extends AbstractMessage
 
     /**
      * Returns whether or not the user has DJ hardware
+     *
      * @return bool
      */
     public function getHasDjHardware()
@@ -76,8 +82,9 @@ class UserUpdate extends AbstractMessage
 
     /**
      * Set user language
+     *
      * @param string $language
-     * @return UserUpdate
+     * @return self
      */
     public function setLanguage($language)
     {
@@ -86,6 +93,7 @@ class UserUpdate extends AbstractMessage
 
     /**
      * Get user language
+     *
      * @return string
      */
     public function getLanguage()
@@ -95,8 +103,9 @@ class UserUpdate extends AbstractMessage
 
     /**
      * Set user country
+     *
      * @param string $country
-     * @return UserUpdate
+     * @return self
      */
     public function setCountry($country)
     {
@@ -105,6 +114,7 @@ class UserUpdate extends AbstractMessage
 
     /**
      * Get user country
+     *
      * @return string
      */
     public function getCountry()
