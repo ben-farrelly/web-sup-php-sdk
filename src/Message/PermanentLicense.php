@@ -23,7 +23,9 @@ class PermanentLicense extends AbstractMessage
     public function __construct($userId, array $params = [])
     {
         parent::__construct($userId, $params);
-        $this->setParam(self::LICENSE_ACTION_PARAM_NAME, self::ADD);
+        if ($this->getLicenseAction() === null) {
+            $this->setLicenseAction(self::ADD);
+        }
     }
 
     /**
