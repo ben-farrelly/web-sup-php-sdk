@@ -67,5 +67,4 @@ class PermanentLicense extends AbstractMessage
     {
         return $this->getParam(self::LICENSE_ACTION_PARAM_NAME);
     }
-
 }
