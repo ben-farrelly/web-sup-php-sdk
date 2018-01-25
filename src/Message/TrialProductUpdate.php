@@ -17,20 +17,20 @@ class TrialProductUpdate extends AbstractMessage
     /**
      * Set the trial Product Type id
      *
-     * @param int $productTypeId    Trial Product Type ID
+     * @param string $productName    Trial Product name
      * @return self
      */
-    public function setProductId($productTypeId)
+    public function setProductName($productName)
     {
-        return $this->setParam(self::TRIAL_PRODUCT_PARAM_NAME, $productTypeId);
+        return $this->setParam(self::TRIAL_PRODUCT_PARAM_NAME, $productName);
     }
 
     /**
-     * Get trial Product Type id
+     * Get trial Product Type name
      *
-     * @return int
+     * @return string
      */
-    public function getProductId()
+    public function getProductName()
     {
         return $this->getParam(self::TRIAL_PRODUCT_PARAM_NAME);
     }
