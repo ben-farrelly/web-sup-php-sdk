@@ -11,8 +11,8 @@ use Serato\UserProfileSdk\Message\AbstractMessage;
  */
 class TrialProductUpdate extends AbstractMessage
 {
-    const TRIAL_PRODUCT_PARAM_NAME = 'trial-product';
-    const TRIAL_PRODUCT_EXPIRY_PARAM_NAME = 'expiry';
+    const PRODUCT_NAME = 'trial-product';
+    const EXPIRY = 'expiry';
 
     /**
      * Set the trial Product Type name
@@ -22,7 +22,7 @@ class TrialProductUpdate extends AbstractMessage
      */
     public function setProductName($productName)
     {
-        return $this->setParam(self::TRIAL_PRODUCT_PARAM_NAME, $productName);
+        return $this->setParam(self::PRODUCT_NAME, $productName);
     }
 
     /**
@@ -32,7 +32,7 @@ class TrialProductUpdate extends AbstractMessage
      */
     public function getProductName()
     {
-        return $this->getParam(self::TRIAL_PRODUCT_PARAM_NAME);
+        return $this->getParam(self::PRODUCT_NAME);
     }
 
     /**
@@ -45,7 +45,7 @@ class TrialProductUpdate extends AbstractMessage
      */
     public function setExpiry($expiryDate)
     {
-        return $this->setParam(self::TRIAL_PRODUCT_EXPIRY_PARAM_NAME, $expiryDate);
+        return $this->setParam(self::EXPIRY, $expiryDate);
     }
 
     /**
@@ -55,6 +55,6 @@ class TrialProductUpdate extends AbstractMessage
      */
     public function getExpiry()
     {
-        return $this->getParam(self::TRIAL_PRODUCT_EXPIRY_PARAM_NAME);
+        return $this->getParam(self::EXPIRY);
     }
 }

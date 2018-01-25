@@ -11,8 +11,8 @@ use Serato\UserProfileSdk\Message\AbstractMessage;
  */
 class SubscriptionProductUpdate extends AbstractMessage
 {
-    const SUB_PLAN_PARAM_NAME = 'plan';
-    const SUB_EXPIRY_PARAM_NAME = 'expiry';
+    const PLAN = 'plan';
+    const EXPIRY = 'expiry';
 
     /**
      * Set the plan name for Subscription
@@ -22,7 +22,7 @@ class SubscriptionProductUpdate extends AbstractMessage
      */
     public function setPlan($planName)
     {
-        return $this->setParam(self::SUB_PLAN_PARAM_NAME, $planName);
+        return $this->setParam(self::PLAN, $planName);
     }
 
     /**
@@ -32,7 +32,7 @@ class SubscriptionProductUpdate extends AbstractMessage
      */
     public function getPlan()
     {
-        return $this->getParam(self::SUB_PLAN_PARAM_NAME);
+        return $this->getParam(self::PLAN);
     }
 
     /**
@@ -45,7 +45,7 @@ class SubscriptionProductUpdate extends AbstractMessage
      */
     public function setExpiry($expiryDate)
     {
-        return $this->setParam(self::SUB_EXPIRY_PARAM_NAME, $expiryDate);
+        return $this->setParam(self::EXPIRY, $expiryDate);
     }
 
     /**
@@ -55,6 +55,6 @@ class SubscriptionProductUpdate extends AbstractMessage
      */
     public function getExpiry()
     {
-        return $this->getParam(self::SUB_EXPIRY_PARAM_NAME);
+        return $this->getParam(self::EXPIRY);
     }
 }

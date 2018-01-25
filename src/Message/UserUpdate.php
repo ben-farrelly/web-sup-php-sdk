@@ -11,11 +11,11 @@ use Serato\UserProfileSdk\Message\AbstractMessage;
  */
 class UserUpdate extends AbstractMessage
 {
-    const EMAIL_PARAM_NAME = 'email';
-    const DAW_PARAM_NAME = 'daw';
-    const HAS_DJ_HARDWARE_PARAM_NAME = 'dj_hardware';
-    const LANGUAGE_PARAM_NAME = 'language';
-    const COUNTRY_PARAM_NAME = 'country';
+    const EMAIL = 'email';
+    const DAW = 'daw';
+    const HAS_DJ_HARDWARE = 'dj_hardware';
+    const LANGUAGE = 'language';
+    const COUNTRY = 'country';
 
     /**
      * Set user email address
@@ -25,7 +25,7 @@ class UserUpdate extends AbstractMessage
      */
     public function setEmail($email)
     {
-        return $this->setParam(self::EMAIL_PARAM_NAME, $email);
+        return $this->setParam(self::EMAIL, $email);
     }
 
     /**
@@ -35,7 +35,7 @@ class UserUpdate extends AbstractMessage
      */
     public function getEmail()
     {
-        return $this->getParam(self::EMAIL_PARAM_NAME);
+        return $this->getParam(self::EMAIL);
     }
 
     /**
@@ -46,7 +46,7 @@ class UserUpdate extends AbstractMessage
      */
     public function setDaw($dawOption)
     {
-        return $this->setParam(self::DAW_PARAM_NAME, $dawOption);
+        return $this->setParam(self::DAW, $dawOption);
     }
 
     /**
@@ -56,7 +56,7 @@ class UserUpdate extends AbstractMessage
      */
     public function getDaw()
     {
-        return $this->getParam(self::DAW_PARAM_NAME);
+        return $this->getParam(self::DAW);
     }
 
     /**
@@ -67,7 +67,7 @@ class UserUpdate extends AbstractMessage
      */
     public function setHasDjHardware($hardware)
     {
-        return $this->setParam(self::HAS_DJ_HARDWARE_PARAM_NAME, $hardware);
+        return $this->setParam(self::HAS_DJ_HARDWARE, $hardware);
     }
 
     /**
@@ -77,7 +77,7 @@ class UserUpdate extends AbstractMessage
      */
     public function getHasDjHardware()
     {
-        return $this->getParam(self::HAS_DJ_HARDWARE_PARAM_NAME);
+        return $this->getParam(self::HAS_DJ_HARDWARE);
     }
 
     /**
@@ -88,7 +88,7 @@ class UserUpdate extends AbstractMessage
      */
     public function setLanguage($language)
     {
-        return $this->setParam(self::LANGUAGE_PARAM_NAME, $language);
+        return $this->setParam(self::LANGUAGE, $language);
     }
 
     /**
@@ -98,7 +98,7 @@ class UserUpdate extends AbstractMessage
      */
     public function getLanguage()
     {
-        return $this->getParam(self::LANGUAGE_PARAM_NAME);
+        return $this->getParam(self::LANGUAGE);
     }
 
     /**
@@ -109,7 +109,7 @@ class UserUpdate extends AbstractMessage
      */
     public function setCountry($country)
     {
-        return $this->setParam(self::COUNTRY_PARAM_NAME, $country);
+        return $this->setParam(self::COUNTRY, $country);
     }
 
     /**
@@ -119,6 +119,6 @@ class UserUpdate extends AbstractMessage
      */
     public function getCountry()
     {
-        return $this->getParam(self::COUNTRY_PARAM_NAME);
+        return $this->getParam(self::COUNTRY);
     }
 }
