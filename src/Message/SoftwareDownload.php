@@ -4,10 +4,7 @@ namespace Serato\UserProfileSdk\Message;
 use Serato\UserProfileSdk\Message\AbstractMessage;
 
 /**
- * User's downloaded softwares.
- * Find information about available options
- * for `software`, `OS` and `version` at:
- * https://github.com/serato/web-sup-php-app
+ * A message representing a user downloading a software installer.
  */
 class SoftwareDownload extends AbstractMessage
 {

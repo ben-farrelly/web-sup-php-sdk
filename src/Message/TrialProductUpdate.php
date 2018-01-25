@@ -4,10 +4,10 @@ namespace Serato\UserProfileSdk\Message;
 use Serato\UserProfileSdk\Message\AbstractMessage;
 
 /**
- * User's trial products.
- * Find information about available options
- * for `productId` and `expiry` at:
- * https://github.com/serato/web-sup-php-app
+ * A message representing a user starting a trial of a product.
+ *
+ * The product may be being trialled for the first time, or for successive times
+ * in which case the expiry date of the product will be updated.
  */
 class TrialProductUpdate extends AbstractMessage
 {
@@ -15,7 +15,7 @@ class TrialProductUpdate extends AbstractMessage
     const TRIAL_PRODUCT_EXPIRY_PARAM_NAME = 'expiry';
 
     /**
-     * Set the trial Product Type id
+     * Set the trial Product Type name
      *
      * @param string $productName    Trial Product name
      * @return self

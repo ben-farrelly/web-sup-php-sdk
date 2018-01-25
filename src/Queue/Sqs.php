@@ -7,6 +7,12 @@ use Serato\UserProfileSdk\Message\AbstractMessage;
 use Serato\UserProfileSdk\Exception\InvalidMessageBodyException;
 use Aws\Sqs\Exception\SqsException;
 
+/**
+ * AWS SQS queue implementation.
+ *
+ * Send `Serato\UserProfileSdk\Message\AbstractMessage` instances via an SQS
+ * message queue.
+ */
 class Sqs extends AbstractMessageQueue
 {
     const FIFO_QUEUE        = true;

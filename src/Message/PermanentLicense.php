@@ -4,10 +4,7 @@ namespace Serato\UserProfileSdk\Message;
 use Serato\UserProfileSdk\Message\AbstractMessage;
 
 /**
- * User's permanent licenses.
- * Find information about available options
- * for `licenseId`
- * https://github.com/serato/web-sup-php-app
+ * A message representing a user adding or removing a software permanent license.
  */
 class PermanentLicense extends AbstractMessage
 {

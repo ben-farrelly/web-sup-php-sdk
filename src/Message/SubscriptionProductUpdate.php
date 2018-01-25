@@ -4,10 +4,10 @@ namespace Serato\UserProfileSdk\Message;
 use Serato\UserProfileSdk\Message\AbstractMessage;
 
 /**
- * User's subscription products.
- * Find information about available
- * options for `plan` and `expiry` at:
- * https://github.com/serato/web-sup-php-app
+ * A message representing a user's subscription plan.
+ *
+ * The message conveys the user starting the plan for the first time, as well as
+ * indicating that the expiry date of the plan has changed.
  */
 class SubscriptionProductUpdate extends AbstractMessage
 {

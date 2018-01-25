@@ -4,10 +4,10 @@ namespace Serato\UserProfileSdk\Message;
 use Serato\UserProfileSdk\Message\AbstractMessage;
 
 /**
- * User profile update.
- * Find information about available options for
- * `DAW`, `hardwares`, `languages` and `countries` at:
- * https://github.com/serato/web-sup-php-app
+ * A message representing a user updating profile information.
+ *
+ * Each message can convey the updating of all possible parameters or subset
+ * of parameters including individual parameters.
  */
 class UserUpdate extends AbstractMessage
 {
