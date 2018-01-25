@@ -11,8 +11,9 @@ use Serato\UserProfileSdk\Exception\InvalidMessageBodyException;
  *
  * **Abstract methods:**
  *
- * - `sendMessage` : sends an `AbstractMessage` instance to the queue.
- * - `createMessage` : converts a raw queue message back into it's source `AbstractMessage` instance.
+ * - `sendMessage` : sends an `Serato\UserProfileSdk\Message\AbstractMessage` instance to the queue.
+ * - `createMessage` : converts a raw queue message back into it's source
+ * `Serato\UserProfileSdk\Message\AbstractMessage` instance.
  */
 abstract class AbstractMessageQueue
 {

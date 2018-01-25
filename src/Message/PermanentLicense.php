@@ -4,15 +4,12 @@ namespace Serato\UserProfileSdk\Message;
 use Serato\UserProfileSdk\Message\AbstractMessage;
 
 /**
- * User's permanent licenses.
- * Find information about available options
- * for `licenseId`
- * https://github.com/serato/web-sup-php-app
+ * A message representing a user adding or removing a software permanent license.
  */
 class PermanentLicense extends AbstractMessage
 {
-    const LICENSE_TYPE_ID_PARAM_NAME = 'license-type-id';
-    const LICENSE_ACTION_PARAM_NAME = 'license-action';
+    const LICENSE_TYPE_ID = 'license-type-id';
+    const LICENSE_ACTION = 'license-action';
 
     const ADD = 'license-action-add';
     const REMOVE = 'license-action-remove';
@@ -36,7 +33,7 @@ class PermanentLicense extends AbstractMessage
      */
     public function setLicenseTypeId($licenseTypeId)
     {
-        return $this->setParam(self::LICENSE_TYPE_ID_PARAM_NAME, $licenseTypeId);
+        return $this->setParam(self::LICENSE_TYPE_ID, $licenseTypeId);
     }
 
     /**
@@ -46,7 +43,7 @@ class PermanentLicense extends AbstractMessage
      */
     public function getLicenseTypeId()
     {
-        return $this->getParam(self::LICENSE_TYPE_ID_PARAM_NAME);
+        return $this->getParam(self::LICENSE_TYPE_ID);
     }
 
     /**
@@ -57,7 +54,7 @@ class PermanentLicense extends AbstractMessage
      */
     public function setLicenseAction($action)
     {
-        return $this->setParam(self::LICENSE_ACTION_PARAM_NAME, $action);
+        return $this->setParam(self::LICENSE_ACTION, $action);
     }
 
     /**
@@ -67,6 +64,6 @@ class PermanentLicense extends AbstractMessage
      */
     public function getLicenseAction()
     {
-        return $this->getParam(self::LICENSE_ACTION_PARAM_NAME);
+        return $this->getParam(self::LICENSE_ACTION);
     }
 }

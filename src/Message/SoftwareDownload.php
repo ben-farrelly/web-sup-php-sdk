@@ -4,16 +4,13 @@ namespace Serato\UserProfileSdk\Message;
 use Serato\UserProfileSdk\Message\AbstractMessage;
 
 /**
- * User's downloaded softwares.
- * Find information about available options
- * for `software`, `OS` and `version` at:
- * https://github.com/serato/web-sup-php-app
+ * A message representing a user downloading a software installer.
  */
 class SoftwareDownload extends AbstractMessage
 {
-    const SOFTWARE_PARAM_NAME = 'software';
-    const SOFTWARE_VER_PARAM_NAME = 'version';
-    const SOFTWARE_OS_PARAM_NAME = 'os';
+    const SOFTWARE_NAME = 'software';
+    const VERSION = 'version';
+    const OS = 'os';
 
     /**
      * Set the name of the software download
@@ -23,7 +20,7 @@ class SoftwareDownload extends AbstractMessage
      */
     public function setSoftwareName($software)
     {
-        return $this->setParam(self::SOFTWARE_PARAM_NAME, $software);
+        return $this->setParam(self::SOFTWARE_NAME, $software);
     }
 
     /**
@@ -33,7 +30,7 @@ class SoftwareDownload extends AbstractMessage
      */
     public function getSoftwareName()
     {
-        return $this->getParam(self::SOFTWARE_PARAM_NAME);
+        return $this->getParam(self::SOFTWARE_NAME);
     }
 
     /**
@@ -44,7 +41,7 @@ class SoftwareDownload extends AbstractMessage
      */
     public function setOS($os)
     {
-        return $this->setParam(self::SOFTWARE_OS_PARAM_NAME, $os);
+        return $this->setParam(self::OS, $os);
     }
 
     /**
@@ -54,7 +51,7 @@ class SoftwareDownload extends AbstractMessage
      */
     public function getOS()
     {
-        return $this->getParam(self::SOFTWARE_OS_PARAM_NAME);
+        return $this->getParam(self::OS);
     }
 
     /**
@@ -70,7 +67,7 @@ class SoftwareDownload extends AbstractMessage
      */
     public function setVersion($version)
     {
-        return $this->setParam(self::SOFTWARE_VER_PARAM_NAME, $version);
+        return $this->setParam(self::VERSION, $version);
     }
 
     /**
@@ -80,6 +77,6 @@ class SoftwareDownload extends AbstractMessage
      */
     public function getVersion()
     {
-        return $this->getParam(self::SOFTWARE_VER_PARAM_NAME);
+        return $this->getParam(self::VERSION);
     }
 }

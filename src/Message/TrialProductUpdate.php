@@ -4,25 +4,25 @@ namespace Serato\UserProfileSdk\Message;
 use Serato\UserProfileSdk\Message\AbstractMessage;
 
 /**
- * User's trial products.
- * Find information about available options
- * for `productId` and `expiry` at:
- * https://github.com/serato/web-sup-php-app
+ * A message representing a user starting a trial of a product.
+ *
+ * The product may be being trialled for the first time, or for successive times
+ * in which case the expiry date of the product will be updated.
  */
 class TrialProductUpdate extends AbstractMessage
 {
-    const TRIAL_PRODUCT_PARAM_NAME = 'trial-product';
-    const TRIAL_PRODUCT_EXPIRY_PARAM_NAME = 'expiry';
+    const PRODUCT_NAME = 'trial-product';
+    const EXPIRY = 'expiry';
 
     /**
-     * Set the trial Product Type id
+     * Set the trial Product Type name
      *
      * @param string $productName    Trial Product name
      * @return self
      */
     public function setProductName($productName)
     {
-        return $this->setParam(self::TRIAL_PRODUCT_PARAM_NAME, $productName);
+        return $this->setParam(self::PRODUCT_NAME, $productName);
     }
 
     /**
@@ -32,7 +32,7 @@ class TrialProductUpdate extends AbstractMessage
      */
     public function getProductName()
     {
-        return $this->getParam(self::TRIAL_PRODUCT_PARAM_NAME);
+        return $this->getParam(self::PRODUCT_NAME);
     }
 
     /**
@@ -45,7 +45,7 @@ class TrialProductUpdate extends AbstractMessage
      */
     public function setExpiry($expiryDate)
     {
-        return $this->setParam(self::TRIAL_PRODUCT_EXPIRY_PARAM_NAME, $expiryDate);
+        return $this->setParam(self::EXPIRY, $expiryDate);
     }
 
     /**
@@ -55,6 +55,6 @@ class TrialProductUpdate extends AbstractMessage
      */
     public function getExpiry()
     {
-        return $this->getParam(self::TRIAL_PRODUCT_EXPIRY_PARAM_NAME);
+        return $this->getParam(self::EXPIRY);
     }
 }

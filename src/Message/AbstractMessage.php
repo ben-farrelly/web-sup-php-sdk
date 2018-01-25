@@ -6,6 +6,10 @@ use Serato\UserProfileSdk\Queue\AbstractMessageQueue;
 /**
  * Base class from which all concrete message implementations much inherit.
  *
+ * Each concrete implementation represents a user action or event that is
+ * captured with specific attributes and placed into a queue for downstream
+ * processing by the Serato User Profile application.
+ *
  * Child classes need only implement `get` and `set` methods to populate the
  * `AbstractMessage::params` property.
  */
