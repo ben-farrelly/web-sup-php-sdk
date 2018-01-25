@@ -9,14 +9,14 @@ class TrialProductUpdateTest extends PHPUnitTestCase
     public function testSetters()
     {
         $userId = 123;
-        $productId = '14';
+        $productName = 'sample';
         $expiryDate = '2016-12-02';
 
         $trialProduct = TrialProductUpdate::create($userId)
-                        ->setProductId($productId)
+                        ->setProductName($productName)
                         ->setExpiry($expiryDate);
 
-        $this->assertEquals($productId, $trialProduct->getProductId());
+        $this->assertEquals($productName, $trialProduct->getProductName());
         $this->assertEquals($expiryDate, $trialProduct->getExpiry());
     }
 }
