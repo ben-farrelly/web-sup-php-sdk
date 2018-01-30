@@ -89,7 +89,7 @@ class SqsTest extends PHPUnitTestCase
         $scalarMessageValue = 'A scalar value';
         $arrayMessageValue = ['param1' => 'val1', 'param2' => 22];
 
-        $queueName = 'SeratoUserProfile-Events-Test-' . Uuid::uuid4()->toString();
+        $queueName = 'SeratoUserProfile-Events-test-' . Uuid::uuid4()->toString();
 
         # Credentials come from:
         # - credentials file on dev VMs
