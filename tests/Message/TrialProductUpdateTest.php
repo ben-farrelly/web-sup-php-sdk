@@ -16,6 +16,7 @@ class TrialProductUpdateTest extends PHPUnitTestCase
                         ->setProductName($productName)
                         ->setExpiry($expiryDate);
 
+        $this->assertEquals('TrialProductUpdate', $trialProduct->getType());
         $this->assertEquals($productName, $trialProduct->getProductName());
         $this->assertEquals($expiryDate, $trialProduct->getExpiry());
     }

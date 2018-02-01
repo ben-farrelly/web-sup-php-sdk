@@ -14,6 +14,7 @@ class PermanentLicenseTest extends PHPUnitTestCase
         $permanentLicense = PermanentLicense::create($userId)
                         ->setLicenseTypeId($licenseId);
 
+        $this->assertEquals('PermanentLicense', $permanentLicense->getType());
         $this->assertEquals($licenseId, $permanentLicense->getLicenseTypeId());
         $this->assertEquals(PermanentLicense::ADD, $permanentLicense->getLicenseAction());
     }

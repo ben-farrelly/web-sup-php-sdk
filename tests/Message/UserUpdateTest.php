@@ -22,6 +22,7 @@ class UserUpdateTest extends PHPUnitTestCase
                         ->setLanguage($language)
                         ->setCountry($country);
 
+        $this->assertEquals('UserUpdate', $userUpdate->getType());
         $this->assertEquals($email, $userUpdate->getEmail());
         $this->assertEquals($daw, $userUpdate->getDaw());
         $this->assertEquals($hardware, $userUpdate->getHasDjHardware());

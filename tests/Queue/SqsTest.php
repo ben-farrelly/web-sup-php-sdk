@@ -74,7 +74,10 @@ class SqsTest extends PHPUnitTestCase
             'MessageAttributes' => $sqsSendParams['MessageAttributes']
         ];
 
-        $receivedMockMessage = Sqs::createMessage($sqsReceiveResult);
+        $receivedMockMessage = Sqs::createMessage(
+            $sqsReceiveResult,
+            [$mockMessage->getType() => get_class($mockMessage)]
+        );
 
         $this->assertEquals($receivedMockMessage->getUserId(), $userId);
         $this->assertEquals($receivedMockMessage->getParams(), $params);
@@ -110,10 +113,10 @@ class SqsTest extends PHPUnitTestCase
         $supQueue = new Sqs($awsSqs, $queueName);
 
         # Send message via `Serato\UserProfileSdk\Queue\Sqs` instance
-        $messageId = TestMessage::create($userId)
+        $testMessage = TestMessage::create($userId)
                         ->setScalarValue($scalarMessageValue)
-                        ->setArrayValue($arrayMessageValue)
-                        ->send($supQueue);
+                        ->setArrayValue($arrayMessageValue);
+        $messageId = $testMessage->send($supQueue);
 
         # Use the `Aws\Sdk` instance to receive the message
         # (receiving messages is not the responsibility of the `Serato\UserProfileSdk` SDK)
@@ -136,7 +139,10 @@ class SqsTest extends PHPUnitTestCase
             $message = $result['Messages'][0];
             $this->assertEquals($message['MessageId'], $messageId);
 
-            $testMessageReceived = Sqs::createMessage($message);
+            $testMessageReceived = Sqs::createMessage(
+                $message,
+                [$testMessage->getType() => get_class($testMessage)]
+            );
 
             $this->assertEquals($testMessageReceived->getScalarValue(), $scalarMessageValue);
             $this->assertEquals($testMessageReceived->getArrayValue(), $arrayMessageValue);

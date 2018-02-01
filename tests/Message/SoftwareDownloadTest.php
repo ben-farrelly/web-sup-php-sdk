@@ -18,6 +18,7 @@ class SoftwareDownloadTest extends PHPUnitTestCase
                         ->setOS($os)
                         ->setVersion($version);
 
+        $this->assertEquals('SoftwareDownload', $softwareDownload->getType());
         $this->assertEquals($software, $softwareDownload->getSoftwareName());
         $this->assertEquals($os, $softwareDownload->getOS());
         $this->assertEquals($version, $softwareDownload->getVersion());

@@ -57,11 +57,14 @@ class Sqs extends AbstractMessageQueue
     /**
      * Return an `AbstractMessage` instance from a raw queue message
      *
-     * @param mixed   $body    A raw queue message
+     * @param mixed   $body         A raw queue message
+     * @param array   $classMap     A map of message types to class names (optional)
+     *
      * @return bool     Indicates delivery success
+     *
      * @throws InvalidMessageBodyException
      */
-    public static function createMessage($sqsMessage)
+    public static function createMessage($sqsMessage, array $classMap = [])
     {
         if (md5($sqsMessage['Body']) !== $sqsMessage['MD5OfBody']) {
             throw new InvalidMessageBodyException(
@@ -80,7 +83,8 @@ class Sqs extends AbstractMessageQueue
 
         return self::getMessageFromWrappedBody(
             (int)$sqsMessage['MessageAttributes']['UserId']['StringValue'],
-            $body
+            $body,
+            $classMap
         );
     }
 
