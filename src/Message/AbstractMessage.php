@@ -76,6 +76,17 @@ class AbstractMessage
     }
 
     /**
+     * Returns the type of message
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        $className = get_class($this);
+        return substr($className, strrpos($className, '\\') + 1);
+    }
+
+    /**
      * Set a parameter value
      *
      * @param string    $name   Parameter name

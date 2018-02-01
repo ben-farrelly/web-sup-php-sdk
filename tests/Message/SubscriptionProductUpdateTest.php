@@ -16,6 +16,7 @@ class SubscriptionProductUpdateTest extends PHPUnitTestCase
                         ->setPlan($planName)
                         ->setExpiry($expiryDate);
 
+        $this->assertEquals('SubscriptionProductUpdate', $subscription->getType());
         $this->assertEquals($planName, $subscription->getPlan());
         $this->assertEquals($expiryDate, $subscription->getExpiry());
     }

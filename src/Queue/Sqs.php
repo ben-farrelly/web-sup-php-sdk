@@ -6,6 +6,7 @@ use Aws\Sqs\SqsClient;
 use Serato\UserProfileSdk\Message\AbstractMessage;
 use Serato\UserProfileSdk\Exception\InvalidMessageBodyException;
 use Aws\Sqs\Exception\SqsException;
+use Ramsey\Uuid\Uuid;
 
 /**
  * AWS SQS queue implementation.
@@ -57,11 +58,14 @@ class Sqs extends AbstractMessageQueue
     /**
      * Return an `AbstractMessage` instance from a raw queue message
      *
-     * @param mixed   $body    A raw queue message
+     * @param mixed   $body         A raw queue message
+     * @param array   $classMap     A map of message types to class names (optional)
+     *
      * @return bool     Indicates delivery success
+     *
      * @throws InvalidMessageBodyException
      */
-    public static function createMessage($sqsMessage)
+    public static function createMessage($sqsMessage, array $classMap = [])
     {
         if (md5($sqsMessage['Body']) !== $sqsMessage['MD5OfBody']) {
             throw new InvalidMessageBodyException(
@@ -80,7 +84,8 @@ class Sqs extends AbstractMessageQueue
 
         return self::getMessageFromWrappedBody(
             (int)$sqsMessage['MessageAttributes']['UserId']['StringValue'],
-            $body
+            $body,
+            $classMap
         );
     }
 
@@ -101,8 +106,9 @@ class Sqs extends AbstractMessageQueue
                         'StringValue'   => (string)$message->getUserId()
                     ]
                 ],
-                'MessageBody'       => json_encode($this->getWrappedMessageBody($message)),
-                'QueueUrl'          => $this->getQueueUrl()
+                'MessageBody'               => json_encode($this->getWrappedMessageBody($message)),
+                'QueueUrl'                  => $this->getQueueUrl(),
+                'MessageDeduplicationId'    => Uuid::uuid4()->toString()
             ],
             (self::FIFO_QUEUE ? ['MessageGroupId' => self::MESSAGE_GROUP_ID] : [])
         );
@@ -128,7 +134,6 @@ class Sqs extends AbstractMessageQueue
                     ];
                     if (self::FIFO_QUEUE) {
                         $attributes['FifoQueue'] = 'true';
-                        $attributes['ContentBasedDeduplication'] = 'true';
                     }
                     $result = $this->sqsClient->createQueue([
                         'QueueName' => $this->getRealQueueName(),

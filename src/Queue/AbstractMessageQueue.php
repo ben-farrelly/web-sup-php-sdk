@@ -2,7 +2,7 @@
 namespace Serato\UserProfileSdk\Queue;
 
 use Serato\UserProfileSdk\Message\AbstractMessage;
-use Serato\UserProfileSdk\Exception\InvalidMessageBodyException;
+use Serato\UserProfileSdk\Exception\InvalidMessageTypeException;
 
 /**
  * Base class for interacting with a message queue.
@@ -17,8 +17,8 @@ use Serato\UserProfileSdk\Exception\InvalidMessageBodyException;
  */
 abstract class AbstractMessageQueue
 {
-    const MESSAGE_BODY_CLASS_NAME_KEY = 'className';
-    const MESSAGE_BODY_MESSAGE_KEY = 'message';
+    const MESSAGE_TYPE = 'type';
+    const MESSAGE_BODY = 'message';
 
     /**
      * Send a message to the queue
@@ -38,8 +38,8 @@ abstract class AbstractMessageQueue
     protected function getWrappedMessageBody(AbstractMessage $message)
     {
         return [
-            self::MESSAGE_BODY_CLASS_NAME_KEY   => get_class($message),
-            self::MESSAGE_BODY_MESSAGE_KEY      => $message->getParams()
+            self::MESSAGE_TYPE   => $message->getType(),
+            self::MESSAGE_BODY   => $message->getParams()
         ];
     }
 
@@ -49,11 +49,46 @@ abstract class AbstractMessageQueue
      *
      * @param int       $userId         User ID
      * @param array     $messageBody    Array of message body data
+     * @param array     $classMap       A map of message types to class names (optional)
+     *
      * @return mixed    An AbstractMessage instance
+     *
+     * @throws InvalidMessageTypeException
      */
-    protected static function getMessageFromWrappedBody($userId, array $messageBody)
+    protected static function getMessageFromWrappedBody($userId, array $messageBody, array $classMap = [])
     {
-        $messageClass = $messageBody[self::MESSAGE_BODY_CLASS_NAME_KEY];
-        return $messageClass::create($userId, $messageBody[self::MESSAGE_BODY_MESSAGE_KEY]);
+        if (count($classMap) === 0) {
+            $classMap = self::getDefaultClassMap();
+        }
+
+        $messageType = $messageBody[self::MESSAGE_TYPE];
+
+        if (!isset($classMap[$messageType])) {
+            throw new InvalidMessageTypeException;
+        } else {
+            $messageClass = $classMap[$messageType];
+            return $messageClass::create($userId, $messageBody[self::MESSAGE_BODY]);
+        }
+    }
+
+    /**
+     * Returns a class map of all message classes defined in the `Message` directory.
+     *
+     * ie. All non-abstract classes defined under the `Serato\UserProfileSdk\Message`
+     * namespace.
+     *
+     * @return array
+     */
+    private static function getDefaultClassMap()
+    {
+        $map = [];
+        $ns = '\\Serato\\UserProfileSdk\\Message\\';
+        foreach (glob(realpath(__DIR__ . '/../Message') . '/*.php') as $path) {
+            $type = str_replace('.php', '', substr($path, strrpos($path, '/') + 1));
+            if ($type !== 'AbstractMessage') {
+                $map[$type] = $ns . $type;
+            }
+        }
+        return $map;
     }
 }
