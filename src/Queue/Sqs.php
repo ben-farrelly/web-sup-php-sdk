@@ -6,6 +6,7 @@ use Aws\Sqs\SqsClient;
 use Serato\UserProfileSdk\Message\AbstractMessage;
 use Serato\UserProfileSdk\Exception\InvalidMessageBodyException;
 use Aws\Sqs\Exception\SqsException;
+use Ramsey\Uuid\Uuid;
 
 /**
  * AWS SQS queue implementation.
@@ -105,8 +106,9 @@ class Sqs extends AbstractMessageQueue
                         'StringValue'   => (string)$message->getUserId()
                     ]
                 ],
-                'MessageBody'       => json_encode($this->getWrappedMessageBody($message)),
-                'QueueUrl'          => $this->getQueueUrl()
+                'MessageBody'               => json_encode($this->getWrappedMessageBody($message)),
+                'QueueUrl'                  => $this->getQueueUrl(),
+                'MessageDeduplicationId'    => Uuid::uuid4()->toString()
             ],
             (self::FIFO_QUEUE ? ['MessageGroupId' => self::MESSAGE_GROUP_ID] : [])
         );
