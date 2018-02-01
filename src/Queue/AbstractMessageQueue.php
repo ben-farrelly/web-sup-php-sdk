@@ -17,7 +17,7 @@ use Serato\UserProfileSdk\Exception\InvalidMessageTypeException;
  */
 abstract class AbstractMessageQueue
 {
-    const MESSAGE_TYPE = 'className';
+    const MESSAGE_TYPE = 'type';
     const MESSAGE_BODY = 'message';
 
     /**
