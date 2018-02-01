@@ -132,7 +132,6 @@ class Sqs extends AbstractMessageQueue
                     ];
                     if (self::FIFO_QUEUE) {
                         $attributes['FifoQueue'] = 'true';
-                        $attributes['ContentBasedDeduplication'] = 'true';
                     }
                     $result = $this->sqsClient->createQueue([
                         'QueueName' => $this->getRealQueueName(),
