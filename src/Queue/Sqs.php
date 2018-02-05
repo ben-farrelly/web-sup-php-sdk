@@ -17,7 +17,6 @@ use Ramsey\Uuid\Uuid;
 class Sqs extends AbstractMessageQueue
 {
     const FIFO_QUEUE        = true;
-    const MESSAGE_GROUP_ID  = 'user_profile_events';
 
     /* @var SqsClient */
     private $sqsClient;
@@ -110,7 +109,7 @@ class Sqs extends AbstractMessageQueue
                 'QueueUrl'                  => $this->getQueueUrl(),
                 'MessageDeduplicationId'    => Uuid::uuid4()->toString()
             ],
-            (self::FIFO_QUEUE ? ['MessageGroupId' => self::MESSAGE_GROUP_ID] : [])
+            (self::FIFO_QUEUE ? ['MessageGroupId' => (string)$message->getUserId()] : [])
         );
     }
 
