@@ -10,7 +10,7 @@ class TrialProductUpdateTest extends PHPUnitTestCase
     {
         $userId = 123;
         $productName = 'sample';
-        $expiryDate = '2016-12-02 00:00:00';
+        $expiryDate = '2016-12-02T00:00:00+00:00';
 
         $trialProduct = TrialProductUpdate::create($userId)
                         ->setProductName($productName)
@@ -26,7 +26,7 @@ class TrialProductUpdateTest extends PHPUnitTestCase
         $userId = 123;
         $productName = 'sample';
         $expiryTimestamp = 1480636800;
-        $expiryDate = '2016-12-02 00:00:00';
+        $expiryDate = '2016-12-02T00:00:00+00:00';
 
         $trialProduct = TrialProductUpdate::create($userId)
             ->setProductName($productName)
