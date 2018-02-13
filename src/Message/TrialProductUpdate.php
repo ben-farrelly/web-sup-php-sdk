@@ -13,6 +13,7 @@ class TrialProductUpdate extends AbstractMessage
 {
     const PRODUCT_NAME = 'trial-product';
     const EXPIRY = 'expiry';
+    const EXPIRY_DATE_FORMAT = 'Y-m-d';
 
     /**
      * Set the trial Product Type name
@@ -59,15 +60,14 @@ class TrialProductUpdate extends AbstractMessage
     }
 
     /**
-     * Set expiry date for trial with the given format
+     * Set expiry timestamp for trial
      *
-     * @param string $expiryDate
-     * @param $dateFormat
+     * @param int $timestamp
      *
      * @return string
      */
-    public function setExpiryWithDateFormat($expiryDate, $dateFormat = 'Y-m-d')
+    public function setExpiryTimestamp($timestamp)
     {
-        return $this->setExpiry(gmdate($dateFormat, $expiryDate));
+        return $this->setExpiry(gmdate(self::EXPIRY_DATE_FORMAT, $timestamp));
     }
 }

@@ -25,12 +25,12 @@ class TrialProductUpdateTest extends PHPUnitTestCase
     {
         $userId = 123;
         $productName = 'sample';
-        $expiryDateTimeStamp = '1480636800';
+        $expiryTimestamp = 1480636800;
         $expiryDate = '2016-12-02';
 
         $trialProduct = TrialProductUpdate::create($userId)
             ->setProductName($productName)
-            ->setExpiryWithDateFormat($expiryDateTimeStamp);
+            ->setExpiryTimestamp($expiryTimestamp);
 
         $this->assertEquals('TrialProductUpdate', $trialProduct->getType());
         $this->assertEquals($productName, $trialProduct->getProductName());

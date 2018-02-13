@@ -25,12 +25,12 @@ class SubscriptionProductUpdateTest extends PHPUnitTestCase
     {
         $userId = 123;
         $planName = 'dj-sub';
-        $expiryDateTimeStamp = '1480636800';
+        $expiryTimestamp = 1480636800;
         $expiryDate = '2016-12-02';
 
         $subscription = SubscriptionProductUpdate::create($userId)
             ->setPlan($planName)
-            ->setExpiryWithDateFormat($expiryDateTimeStamp);
+            ->setExpiryTimestamp($expiryTimestamp);
 
         $this->assertEquals('SubscriptionProductUpdate', $subscription->getType());
         $this->assertEquals($planName, $subscription->getPlan());

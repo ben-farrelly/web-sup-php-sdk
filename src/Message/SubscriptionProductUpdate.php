@@ -13,6 +13,7 @@ class SubscriptionProductUpdate extends AbstractMessage
 {
     const PLAN = 'plan';
     const EXPIRY = 'expiry';
+    const EXPIRY_DATE_FORMAT = 'Y-m-d';
 
     /**
      * Set the plan name for Subscription
@@ -59,15 +60,14 @@ class SubscriptionProductUpdate extends AbstractMessage
     }
 
     /**
-     * Set expiry date for subscription with the given format
+     * Set expiry timestamp for subscription
      *
-     * @param string $expiryDate
-     * @param $dateFormat
+     * @param int $timestamp
      *
      *  @return string
      */
-    public function setExpiryWithDateFormat($expiryDate, $dateFormat = 'Y-m-d')
+    public function setExpiryTimestamp($timestamp)
     {
-        return $this->setExpiry(gmdate($dateFormat, $expiryDate));
+        return $this->setExpiry(gmdate(self::EXPIRY_DATE_FORMAT, $timestamp));
     }
 }
