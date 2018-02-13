@@ -10,7 +10,7 @@ class SubscriptionProductUpdateTest extends PHPUnitTestCase
     {
         $userId = 123;
         $planName = 'dj-sub';
-        $expiryDate = '2016-12-02';
+        $expiryDate = '2016-12-02 00:00:00';
 
         $subscription = SubscriptionProductUpdate::create($userId)
                         ->setPlan($planName)
@@ -26,7 +26,7 @@ class SubscriptionProductUpdateTest extends PHPUnitTestCase
         $userId = 123;
         $planName = 'dj-sub';
         $expiryTimestamp = 1480636800;
-        $expiryDate = '2016-12-02';
+        $expiryDate = '2016-12-02 00:00:00';
 
         $subscription = SubscriptionProductUpdate::create($userId)
             ->setPlan($planName)

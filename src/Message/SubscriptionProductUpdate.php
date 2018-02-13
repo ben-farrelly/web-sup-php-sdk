@@ -13,7 +13,7 @@ class SubscriptionProductUpdate extends AbstractMessage
 {
     const PLAN = 'plan';
     const EXPIRY = 'expiry';
-    const EXPIRY_DATE_FORMAT = 'Y-m-d';
+    const EXPIRY_DATE_FORMAT = 'Y-m-d H:i:s';
 
     /**
      * Set the plan name for Subscription
