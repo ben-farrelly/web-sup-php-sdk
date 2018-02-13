@@ -6,15 +6,31 @@ use Serato\UserProfileSdk\Message\SubscriptionProductUpdate;
 
 class SubscriptionProductUpdateTest extends PHPUnitTestCase
 {
-    public function testSetters()
+    public function testSetters0()
     {
         $userId = 123;
         $planName = 'dj-sub';
-        $expiryDate = '2016-12-02';
+        $expiryDate = '2016-12-02T00:00:00+00:00';
 
         $subscription = SubscriptionProductUpdate::create($userId)
                         ->setPlan($planName)
                         ->setExpiry($expiryDate);
+
+        $this->assertEquals('SubscriptionProductUpdate', $subscription->getType());
+        $this->assertEquals($planName, $subscription->getPlan());
+        $this->assertEquals($expiryDate, $subscription->getExpiry());
+    }
+
+    public function testSetters1()
+    {
+        $userId = 123;
+        $planName = 'dj-sub';
+        $expiryTimestamp = 1480636800;
+        $expiryDate = '2016-12-02T00:00:00+00:00';
+
+        $subscription = SubscriptionProductUpdate::create($userId)
+            ->setPlan($planName)
+            ->setExpiryTimestamp($expiryTimestamp);
 
         $this->assertEquals('SubscriptionProductUpdate', $subscription->getType());
         $this->assertEquals($planName, $subscription->getPlan());

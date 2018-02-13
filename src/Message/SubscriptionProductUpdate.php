@@ -57,4 +57,16 @@ class SubscriptionProductUpdate extends AbstractMessage
     {
         return $this->getParam(self::EXPIRY);
     }
+
+    /**
+     * Set expiry timestamp for subscription
+     *
+     * @param int $timestamp
+     *
+     *  @return string
+     */
+    public function setExpiryTimestamp($timestamp)
+    {
+        return $this->setExpiry(gmdate(DATE_ATOM, $timestamp));
+    }
 }
