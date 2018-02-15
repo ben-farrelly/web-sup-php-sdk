@@ -36,11 +36,23 @@ class AbstractMessage
     /**
      * Send the message to message queue
      *
+     * @param AbstractMessageQueue  $queue  A concrete abstract queue instance
      * @return mixed  A unique message identifier
      */
     public function send(AbstractMessageQueue $queue)
     {
         return $queue->sendMessage($this);
+    }
+
+    /**
+     * Send the message for delivery as part of batch send operation
+     *
+     * @param AbstractMessageQueue  $queue  A concrete abstract queue instance
+     * @return void
+     */
+    public function sendToBatch(AbstractMessageQueue $queue)
+    {
+        $queue->sendMessageToBatch($this);
     }
 
     /**

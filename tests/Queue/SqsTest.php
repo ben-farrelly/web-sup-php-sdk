@@ -14,6 +14,8 @@ use Ramsey\Uuid\Uuid;
 
 class SqsTest extends PHPUnitTestCase
 {
+    private $mockHandler;
+
     public function testSendMessage()
     {
         $mockMessage = $this->getMockForAbstractClass(AbstractMessage::class, [111]);
@@ -28,10 +30,47 @@ class SqsTest extends PHPUnitTestCase
             'my-queue-name'
         );
 
-        # Test of one syntax forms
+        # Test one of the syntax forms
         $this->assertEquals('TestMessageId1', $queue->sendMessage($mockMessage));
         # And the other form
         $this->assertEquals('TestMessageId2', $mockMessage->send($queue));
+        // Mock handler stack should be empty
+        $this->assertEquals(0, $this->getAwsMockHandlerStackCount());
+    }
+
+    /**
+     * @group xxx
+     */
+    public function testSendBatches()
+    {
+        // Send 25 messages and ensure that the SDK sends the batches correctly
+
+        $results = [
+            ['QueueUrl'  => 'my-queue-url'],
+            // Results from sending first batch
+            [],
+            // Results from sending second batch
+            [],
+            // Results from sending third batch
+            []
+        ];
+
+        $queue = new Sqs(
+            $this->getMockedAwsSdk($results)->createSqs(['version' => '2012-11-05']),
+            'my-queue-name'
+        );
+
+        $mockMessage = $this->getMockForAbstractClass(AbstractMessage::class, [111]);
+
+        for ($i = 0; $i < 25; $i++) {
+            $queue->sendMessageToBatch($mockMessage);
+        }
+
+        // Destroy $queue object to send remaining messages
+        unset($queue);
+
+        // Mock handler stack should be empty
+        $this->assertEquals(0, $this->getAwsMockHandlerStackCount());
     }
 
     /**
@@ -81,6 +120,8 @@ class SqsTest extends PHPUnitTestCase
 
         $this->assertEquals($receivedMockMessage->getUserId(), $userId);
         $this->assertEquals($receivedMockMessage->getParams(), $params);
+        // Mock handler stack should be empty
+        $this->assertEquals(0, $this->getAwsMockHandlerStackCount());
     }
 
     /**
@@ -158,9 +199,9 @@ class SqsTest extends PHPUnitTestCase
      */
     protected function getMockedAwsSdk(array $mockResults = [])
     {
-        $mock = new MockHandler();
+        $this->mockHandler = new MockHandler();
         foreach ($mockResults as $result) {
-            $mock->append(new Result($result));
+            $this->mockHandler->append(new Result($result));
         }
         return new Sdk([
             'region' => 'us-east-1',
@@ -169,7 +210,17 @@ class SqsTest extends PHPUnitTestCase
                 'key' => 'my-access-key-id',
                 'secret' => 'my-secret-access-key'
             ],
-            'handler' => $mock
+            'handler' => $this->mockHandler
         ]);
+    }
+
+    /**
+     * Returns the number of remaining items in the AWS mock handler queue.
+     *
+     * @return int
+     */
+    protected function getAwsMockHandlerStackCount()
+    {
+        return $this->mockHandler->count();
     }
 }
