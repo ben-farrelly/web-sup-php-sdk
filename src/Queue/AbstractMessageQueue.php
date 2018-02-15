@@ -29,6 +29,14 @@ abstract class AbstractMessageQueue
     abstract public function sendMessage(AbstractMessage $message);
 
     /**
+     * Send a message for delivery as part of batch send operation
+     *
+     * @param AbstractMessage   $message    Message instance
+     * @return void
+     */
+    abstract public function sendMessageToBatch(AbstractMessage $message);
+
+    /**
      * Wrap a `AbstractMessage` instance's body with the name of the child
      * message class into an array suitable for sending to the queue.
      *
