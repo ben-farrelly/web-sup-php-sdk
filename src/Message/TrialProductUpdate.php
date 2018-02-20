@@ -38,7 +38,8 @@ class TrialProductUpdate extends AbstractMessage
     /**
      * Set expiry date for trial Product.
      *
-     * Date format: `YYYY-MM-DD`
+     * Date format: DATE_ATOM
+     * Example: 2017-08-15T15:52:01+00:00
      *
      * @param string $expiryDate    Trial expiry date
      * @return self

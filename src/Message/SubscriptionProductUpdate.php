@@ -38,7 +38,8 @@ class SubscriptionProductUpdate extends AbstractMessage
     /**
      * Set the expiry date for Subscription
      *
-     * Date format: `YYYY-MM-DD`
+     * Date format: DATE_ATOM
+     * Example: 2017-08-15T15:52:01+00:00
      *
      * @param string    $expiryDate    Subscription expiry date
      * @return self
