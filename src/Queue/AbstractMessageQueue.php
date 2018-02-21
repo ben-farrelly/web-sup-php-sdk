@@ -3,6 +3,7 @@ namespace Serato\UserProfileSdk\Queue;
 
 use Serato\UserProfileSdk\Message\AbstractMessage;
 use Serato\UserProfileSdk\Exception\InvalidMessageTypeException;
+use Serato\UserProfileSdk\Exception\QueueSendException;
 
 /**
  * Base class for interacting with a message queue.
@@ -25,6 +26,8 @@ abstract class AbstractMessageQueue
      *
      * @param AbstractMessage   $message    Message instance
      * @return mixed     A unique message identifier
+     *
+     * @throws QueueSendException
      */
     abstract public function sendMessage(AbstractMessage $message);
 
@@ -33,6 +36,8 @@ abstract class AbstractMessageQueue
      *
      * @param AbstractMessage   $message    Message instance
      * @return void
+     *
+     * @throws QueueSendException
      */
     abstract public function sendMessageToBatch(AbstractMessage $message);
 

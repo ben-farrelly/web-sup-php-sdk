@@ -6,6 +6,8 @@ use Aws\Result;
 use Aws\Sqs\SqsClient;
 use Serato\UserProfileSdk\Message\AbstractMessage;
 use Serato\UserProfileSdk\Exception\InvalidMessageBodyException;
+use Serato\UserProfileSdk\Exception\QueueSendException;
+use Aws\Exception\AwsException;
 use Aws\Sqs\Exception\SqsException;
 use Ramsey\Uuid\Uuid;
 
@@ -57,11 +59,14 @@ class Sqs extends AbstractMessageQueue
      */
     public function sendMessage(AbstractMessage $message)
     {
-        $result = $this
-                    ->sqsClient
-                    ->sendMessage($this->messageToSqsSendParams($message));
-
-        return $result['MessageId'];
+        try {
+            $result = $this
+                        ->sqsClient
+                        ->sendMessage($this->messageToSqsSendParams($message));
+            return $result['MessageId'];
+        } catch (AwsException $e) {
+            $this->throwQueueSendException($e);
+        }
     }
 
     /**
@@ -155,7 +160,7 @@ class Sqs extends AbstractMessageQueue
             } catch (SqsException $e) {
                 if ($e->getAwsErrorCode() === 'AWS.SimpleQueueService.NonExistentQueue') {
                     $attributes = [
-                        'VisibilityTimeout'             => 60,
+                        'VisibilityTimeout'             => 10,
                         # Create queue with long polling enabled
                         'ReceiveMessageWaitTimeSeconds' => 20
                     ];
@@ -181,14 +186,18 @@ class Sqs extends AbstractMessageQueue
     private function sendMessageBatch()
     {
         if (count($this->messageBatch) > 0) {
-            $result = $this
-                        ->sqsClient
-                        ->sendMessageBatch([
-                            'Entries'   => $this->messageBatch,
-                            'QueueUrl'  => $this->getQueueUrl()
-                        ]);
-            $this->messageBatch = [];
-            return $result;
+            try {
+                $result = $this
+                            ->sqsClient
+                            ->sendMessageBatch([
+                                'Entries'   => $this->messageBatch,
+                                'QueueUrl'  => $this->getQueueUrl()
+                            ]);
+                $this->messageBatch = [];
+                return $result;
+            } catch (AwsException $e) {
+                $this->throwQueueSendException($e);
+            }
         }
     }
 
@@ -197,6 +206,36 @@ class Sqs extends AbstractMessageQueue
      */
     private function getRealQueueName()
     {
-        return $this->sqsQueueName. (self::FIFO_QUEUE ? '.fifo' : '');
+        return $this->sqsQueueName . (self::FIFO_QUEUE ? '.fifo' : '');
+    }
+
+    /**
+     * Throws a `QueueSendException` exception in response to catching an
+     * `AwsException` exception.
+     *
+     * Uses the`AwsException` instance to create a meaningful error message when
+     * throwing the `QueueSendException` exception.
+     *
+     * @throws QueueSendException
+     */
+    private function throwQueueSendException(AwsException $e)
+    {
+        $msg = 'Error sending message to SQS queue `' . $this->getRealQueueName() .
+                '`.' . PHP_EOL .
+                'The AWS SDK threw an exception with the following details:' . PHP_EOL .
+                'Exception class: ' . get_class($e) . PHP_EOL .
+                'Exception message: ' . $e->getMessage();
+
+        if ($e->getAwsErrorMessage() !== null) {
+            $msg .= PHP_EOL . 'AWS error message: ' . $e->getAwsErrorMessage();
+        }
+        if ($e->getAwsErrorType() !== null) {
+            $msg .= PHP_EOL . 'AWS error type: ' . $e->getAwsErrorType();
+        }
+        if ($e->getAwsErrorCode() !== null) {
+            $msg .= PHP_EOL . 'AWS error code: ' . $e->getAwsErrorCode();
+        }
+
+        throw new QueueSendException($msg);
     }
 }

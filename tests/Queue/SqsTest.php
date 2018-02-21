@@ -7,6 +7,7 @@ use Aws\Sdk;
 use Aws\Result;
 use Aws\MockHandler;
 use Aws\Credentials\CredentialProvider;
+use Aws\Sqs\Exception\SqsException;
 use Serato\UserProfileSdk\Queue\Sqs;
 use Serato\UserProfileSdk\Message\AbstractMessage;
 use Serato\UserProfileSdk\Test\Queue\TestMessage;
@@ -21,9 +22,9 @@ class SqsTest extends PHPUnitTestCase
         $mockMessage = $this->getMockForAbstractClass(AbstractMessage::class, [111]);
 
         $results = [
-            ['QueueUrl'  => 'my-queue-url'],
-            ['MessageId' => 'TestMessageId1'],
-            ['MessageId' => 'TestMessageId2']
+            new Result(['QueueUrl'  => 'my-queue-url']),
+            new Result(['MessageId' => 'TestMessageId1']),
+            new Result(['MessageId' => 'TestMessageId2'])
         ];
         $queue = new Sqs(
             $this->getMockedAwsSdk($results)->createSqs(['version' => '2012-11-05']),
@@ -46,13 +47,13 @@ class SqsTest extends PHPUnitTestCase
         // Send 25 messages and ensure that the SDK sends the batches correctly
 
         $results = [
-            ['QueueUrl'  => 'my-queue-url'],
+            new Result(['QueueUrl'  => 'my-queue-url']),
             // Results from sending first batch
-            [],
+            new Result([]),
             // Results from sending second batch
-            [],
+            new Result([]),
             // Results from sending third batch
-            []
+            new Result([])
         ];
 
         $queue = new Sqs(
@@ -74,6 +75,60 @@ class SqsTest extends PHPUnitTestCase
     }
 
     /**
+     * @expectedException \Serato\UserProfileSdk\Exception\QueueSendException
+     */
+    public function testSendMessageQueueSendException()
+    {
+        $mockMessage = $this->getMockForAbstractClass(AbstractMessage::class, [111]);
+
+        // Create an S3 client so that we can (easily) create an AWS Command object
+        $sqsClient = $this->getMockedAwsSdk()->createSqs(['version' => '2012-11-05']);
+        $cmd = $sqsClient->getCommand('SendMessage', [
+            'MessageBody'   => 'a message body',
+            'QueueUrl'      => 'my-queue-url'
+        ]);
+
+        $results = [
+            new Result(['QueueUrl'  => 'my-queue-url']),
+            new SqsException('No Attribute MD5 found', $cmd, ['code' => 'ClientChecksumMismatch'])
+        ];
+
+        $queue = new Sqs(
+            $this->getMockedAwsSdk($results)->createSqs(['version' => '2012-11-05']),
+            'my-queue-name'
+        );
+
+        $this->assertEquals('TestMessageId1', $queue->sendMessage($mockMessage));
+    }
+
+    /**
+     * @expectedException \Serato\UserProfileSdk\Exception\QueueSendException
+     */
+    public function testSendMessageToBatchQueueSendException()
+    {
+        $mockMessage = $this->getMockForAbstractClass(AbstractMessage::class, [111]);
+
+        // Create an S3 client so that we can (easily) create an AWS Command object
+        $sqsClient = $this->getMockedAwsSdk()->createSqs(['version' => '2012-11-05']);
+        $cmd = $sqsClient->getCommand('SendMessage', [
+            'MessageBody'   => 'a message body',
+            'QueueUrl'      => 'my-queue-url'
+        ]);
+
+        $results = [
+            new Result(['QueueUrl'  => 'my-queue-url']),
+            new SqsException('No Attribute MD5 found', $cmd, ['code' => 'ClientChecksumMismatch'])
+        ];
+
+        $queue = new Sqs(
+            $this->getMockedAwsSdk($results)->createSqs(['version' => '2012-11-05']),
+            'my-queue-name'
+        );
+
+        $this->assertEquals('TestMessageId1', $queue->sendMessageToBatch($mockMessage));
+    }
+
+    /**
      * @expectedException \Serato\UserProfileSdk\Exception\InvalidMessageBodyException
      */
     public function testCreateMessageWithInvalidMd5()
@@ -87,7 +142,7 @@ class SqsTest extends PHPUnitTestCase
     public function testCreateMessage()
     {
         $results = [
-            ['QueueUrl'  => 'my-queue-url'],
+            new Result(['QueueUrl'  => 'my-queue-url'])
         ];
 
         $queue = new Sqs(
@@ -201,7 +256,7 @@ class SqsTest extends PHPUnitTestCase
     {
         $this->mockHandler = new MockHandler();
         foreach ($mockResults as $result) {
-            $this->mockHandler->append(new Result($result));
+            $this->mockHandler->append($result);
         }
         return new Sdk([
             'region' => 'us-east-1',
