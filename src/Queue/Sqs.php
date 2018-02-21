@@ -155,7 +155,7 @@ class Sqs extends AbstractMessageQueue
             } catch (SqsException $e) {
                 if ($e->getAwsErrorCode() === 'AWS.SimpleQueueService.NonExistentQueue') {
                     $attributes = [
-                        'VisibilityTimeout'             => 60,
+                        'VisibilityTimeout'             => 10,
                         # Create queue with long polling enabled
                         'ReceiveMessageWaitTimeSeconds' => 20
                     ];
