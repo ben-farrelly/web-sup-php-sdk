@@ -17,6 +17,7 @@ class UserUpdate extends AbstractMessage
     const LANGUAGE = 'language';
     const COUNTRY = 'country';
     const HISTORICAL_MAILCHIMP_SUBSCRIBED = 'historical_mailchimp_subscribed';
+    const GLOBAL_CONTACT_ME = 'global_contact_me';
 
     /**
      * Set user email address
@@ -124,8 +125,7 @@ class UserUpdate extends AbstractMessage
     }
 
     /**
-     * Sets whether or not the user is subscribed to the historical MailChimp
-     * list
+     * Set whether or not the user is subscribed to the historical MailChimp list
      *
      * @param bool $subscribed
      * @return self
@@ -136,13 +136,33 @@ class UserUpdate extends AbstractMessage
     }
 
     /**
-     * Returns whether or not the user is subscribed to the historical MailChimp
-     * list
+     * Return whether or not the user is subscribed to the historical MailChimp list
      *
      * @return bool
      */
     public function getHistoricalMailchimpSubscribed()
     {
         return $this->getParam(self::HISTORICAL_MAILCHIMP_SUBSCRIBED);
+    }
+
+    /**
+     * Set notification setting
+     *
+     * @param int $globalContactMe
+     * @return self
+     */
+    public function setGlobalContactMe($globalContactMe)
+    {
+        return $this->setParam(self::GLOBAL_CONTACT_ME, $globalContactMe);
+    }
+
+    /**
+     * Get notification setting
+     *
+     * @return int
+     */
+    public function getGlobalContactMe()
+    {
+        return $this->getParam(self::GLOBAL_CONTACT_ME);
     }
 }
