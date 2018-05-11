@@ -18,6 +18,10 @@ class UserUpdate extends AbstractMessage
     const COUNTRY = 'country';
     const HISTORICAL_MAILCHIMP_SUBSCRIBED = 'historical_mailchimp_subscribed';
     const GLOBAL_CONTACT_ME = 'global_contact_me';
+    const IMPLICIT_OPT_OUT = 0;
+    const IMPLICIT_OPT_IN = 1;
+    const EXPLICIT_OPT_OUT = 2;
+    const EXPLICIT_OPT_IN = 3;
 
     /**
      * Set user email address
@@ -148,7 +152,11 @@ class UserUpdate extends AbstractMessage
     /**
      * Set notification setting
      *
-     * @param int $globalContactMe
+     * @param int $globalContactMe This value should be one of:
+     *      slef::IMPLICIT_OPT_OUT
+     *      slef::IMPLICIT_OPT_IN
+     *      slef::EXPLICIT_OPT_OUT
+     *      slef::EXPLICIT_OPT_IN
      * @return self
      */
     public function setGlobalContactMe($globalContactMe)
