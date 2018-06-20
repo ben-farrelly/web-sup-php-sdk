@@ -1,6 +1,7 @@
 <?php
 namespace Serato\UserProfileSdk\Test\Message;
 
+use DateTime;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use Serato\UserProfileSdk\Message\TimeLimitedLicense;
 
@@ -9,7 +10,7 @@ class TimeLimitedLicenseTest extends PHPUnitTestCase
     public function testTimeLimitedLicenseImplicitAdd()
     {
         $userId = 123;
-        $licenseTypeId = 33;
+        $licenseTypeId = 61;
         $licenseId = 'TLL-12345-468787-795825';
         $expiryDate = '2016-12-02T00:00:00+00:00';
 
@@ -28,10 +29,11 @@ class TimeLimitedLicenseTest extends PHPUnitTestCase
     public function testTimeLimitedLicenseExplicitAdd()
     {
         $userId = 123;
-        $licenseTypeId = 33;
-        $expiryTimestamp = 1480636800;
+        $licenseTypeId = 62;
+        $now = new DateTime();
+        $expiryTimestamp = $now->getTimestamp();
+        $expiryDate = $now->format(DateTime::ATOM);
         $licenseId = 'TLL-12345-468787-795825';
-        $expiryDate = '2016-12-02T00:00:00+00:00';
 
         $timeLimitedLicense = TimeLimitedLicense::create($userId)
             ->setLicenseTypeId($licenseTypeId)
@@ -49,10 +51,11 @@ class TimeLimitedLicenseTest extends PHPUnitTestCase
     public function testTimeLimitedLicenseRemove()
     {
         $userId = 123;
-        $licenseTypeId = 33;
-        $expiryTimestamp = 1480636800;
+        $licenseTypeId = 61;
+        $now = new DateTime();
+        $expiryTimestamp = $now->getTimestamp();
+        $expiryDate = $now->format(DateTime::ATOM);
         $licenseId = 'TLL-12345-468787-795825';
-        $expiryDate = '2016-12-02T00:00:00+00:00';
 
         $timeLimitedLicense = TimeLimitedLicense::create($userId)
             ->setLicenseTypeId($licenseTypeId)
