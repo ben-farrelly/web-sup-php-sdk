@@ -14,8 +14,8 @@ class SubscriptionProductUpdate extends AbstractMessage
     const PLAN = 'plan';
     const EXPIRY = 'expiry';
     const STATUS = 'status';
-    const NUMBEROFBILLINGCYCLES = 'numberOfBillingCycles';
-    const CURRENTBILLINGCYCLE = 'currentBillingCycle';
+    const NUMBER_OF_BILLING_CYCLES = 'numberOfBillingCycles';
+    const CURRENT_BILLING_CYCLE = 'currentBillingCycle';
 
 
     /**
@@ -26,7 +26,7 @@ class SubscriptionProductUpdate extends AbstractMessage
      */
     public function setNumberOfBillingCycles($numberOfBillingCycles)
     {
-        return $this->setParam(self::NUMBEROFBILLINGCYCLES, $numberOfBillingCycles);
+        return $this->setParam(self::NUMBER_OF_BILLING_CYCLES, $numberOfBillingCycles);
     }
 
     /**
@@ -36,7 +36,7 @@ class SubscriptionProductUpdate extends AbstractMessage
      */
     public function getNumberOfBillingCycles()
     {
-        return $this->getParam(self::NUMBEROFBILLINGCYCLES);
+        return $this->getParam(self::NUMBER_OF_BILLING_CYCLES);
     }
 
     /**
@@ -47,7 +47,7 @@ class SubscriptionProductUpdate extends AbstractMessage
      */
     public function setCurrentBillingCycle($currentBillingCycle)
     {
-        return $this->setParam(self::CURRENTBILLINGCYCLE, $currentBillingCycle);
+        return $this->setParam(self::CURRENT_BILLING_CYCLE, $currentBillingCycle);
     }
 
     /**
@@ -57,7 +57,7 @@ class SubscriptionProductUpdate extends AbstractMessage
      */
     public function getCurrentBillingCycle()
     {
-        return $this->getParam(self::CURRENTBILLINGCYCLE);
+        return $this->getParam(self::CURRENT_BILLING_CYCLE);
     }
 
     /**
