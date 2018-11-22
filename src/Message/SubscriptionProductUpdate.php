@@ -13,6 +13,73 @@ class SubscriptionProductUpdate extends AbstractMessage
 {
     const PLAN = 'plan';
     const EXPIRY = 'expiry';
+    const STATUS = 'status';
+    const NUMBEROFBILLINGCYCLES = 'numberOfBillingCycles';
+    const CURRENTBILLINGCYCLE = 'currentBillingCycle';
+
+
+    /**
+     * Set the number of billing cycles for Subscription
+     *
+     * @param int   $numberOfBillingCycles  Subscription Number Of Billing Cycles
+     * @return self
+     */
+    public function setNumberOfBillingCycles($numberOfBillingCycles)
+    {
+        return $this->setParam(self::NUMBEROFBILLINGCYCLES, $numberOfBillingCycles);
+    }
+
+    /**
+     * Get the number of billing cycles for Subscription
+     *
+     * @return int
+     */
+    public function getNumberOfBillingCycles()
+    {
+        return $this->getParam(self::NUMBEROFBILLINGCYCLES);
+    }
+
+    /**
+     * Set the current billing cycle for Subscription
+     *
+     * @param int    $currentBillingCycle  Subscription current billing cycle
+     * @return self
+     */
+    public function setCurrentBillingCycle($currentBillingCycle)
+    {
+        return $this->setParam(self::CURRENTBILLINGCYCLE, $currentBillingCycle);
+    }
+
+    /**
+     * Get the current billing cycle for Subscription
+     *
+     * @return int
+     */
+    public function getCurrentBillingCycle()
+    {
+        return $this->getParam(self::CURRENTBILLINGCYCLE);
+    }
+
+    /**
+     * Set the status for Subscription
+     *
+     * @param string    $status  Subscription status
+     * @return self
+     */
+    public function setStatus($status)
+    {
+        return $this->setParam(self::STATUS, $status);
+    }
+
+    /**
+     * Get the status for Subscription
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->getParam(self::STATUS);
+    }
 
     /**
      * Set the plan name for Subscription
