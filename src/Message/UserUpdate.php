@@ -22,6 +22,7 @@ class UserUpdate extends AbstractMessage
     const IMPLICIT_OPT_IN = 1;
     const EXPLICIT_OPT_OUT = 2;
     const EXPLICIT_OPT_IN = 3;
+    const NO_VALUE_CONTACT_ME = 4;
 
     /**
      * Set user email address
@@ -157,6 +158,7 @@ class UserUpdate extends AbstractMessage
      *      slef::IMPLICIT_OPT_IN
      *      slef::EXPLICIT_OPT_OUT
      *      slef::EXPLICIT_OPT_IN
+     *      self::NO_VALUE_CONTACT_ME
      * @return self
      */
     public function setGlobalContactMe($globalContactMe)
