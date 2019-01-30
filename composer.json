@@ -4,7 +4,7 @@
 	"description": "A PHP SDK for sending user profile attributes and events to the Serato User Profile application.",
 	"type": "library",
 	"require": {
-		"php" : ">=5.6",
+		"php" : ">=7.1",
 		"aws/aws-sdk-php": "^3.0",
 		"ramsey/uuid": "~3.6"
 	},
@@ -12,8 +12,9 @@
 		"phpunit/phpunit": "~5.0",
 		"squizlabs/php_codesniffer": "~3.0",
 		"monolog/monolog": "^1.21.0",
-		"sami/sami": "3.*",
-		"symfony/finder": "2.3.*"
+		"phpstan/phpstan": "^0.11.0",
+		"apigen/apigen": "dev-master#85290e8",
+		"roave/better-reflection": "dev-master#ce9d784"
 	},
 	"autoload": {
 		"psr-4": {
