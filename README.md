@@ -22,7 +22,7 @@ available versions.
 
 ## Requirements
 
-This library requires PHP 5.6 or above and is tested against all major stable releases of PHP >= 5.6.
+This library requires PHP 7.1 or greater.
 
 ## Style guide
 
@@ -32,6 +32,14 @@ Use [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer/wiki) to vali
 
 ```bash
 $ ./vendor/bin/phpcs
+```
+
+## PHPStan
+
+Use PHPStan for static code analysis:
+
+```bash
+$ vendor/bin/phpstan analyse
 ```
 
 ## Unit tests
