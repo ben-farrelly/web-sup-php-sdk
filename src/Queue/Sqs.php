@@ -90,7 +90,7 @@ class Sqs extends AbstractMessageQueue
      * @param mixed   $sqsMessage   A raw queue message
      * @param array   $classMap     A map of message types to class names (optional)
      *
-     * @return bool   Indicates delivery success
+     * @return mixed    An AbstractMessage instance
      *
      * @throws InvalidMessageBodyException
      */

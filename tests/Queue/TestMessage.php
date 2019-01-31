@@ -10,6 +10,11 @@ use Serato\UserProfileSdk\Message\AbstractMessage;
  */
 class TestMessage extends AbstractMessage
 {
+    public static function create(int $userId, array $params = []): self
+    {
+        return new static($userId, $params);
+    }
+
     public function setScalarValue($val)
     {
         $this->setParam('scalarValue', $val);

@@ -15,7 +15,7 @@ use Serato\UserProfileSdk\Queue\AbstractMessageQueue;
  * Child classes need only implement `get` and `set` methods to populate the
  * `AbstractMessage::params` property.
  */
-class AbstractMessage
+abstract class AbstractMessage
 {
     /* @var array */
     private $params = [];
@@ -34,6 +34,8 @@ class AbstractMessage
         $this->userId = $userId;
         $this->params = $params;
     }
+
+    abstract public static function create(int $userId, array $params = []);
 
     /**
      * Send the message to message queue

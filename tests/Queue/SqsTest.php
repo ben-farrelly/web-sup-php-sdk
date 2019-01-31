@@ -19,9 +19,12 @@ class SqsTest extends PHPUnitTestCase
 {
     private $mockHandler;
 
+    /* @var AbstractMessage */
+    private $mockMessage;
+
     public function testSendMessage()
     {
-        $mockMessage = $this->getMockForAbstractClass(AbstractMessage::class, [111]);
+        $this->createAbstractMessageMock(111);
 
         $results = [
             new Result(['QueueUrl'  => 'my-queue-url']),
@@ -34,9 +37,9 @@ class SqsTest extends PHPUnitTestCase
         );
 
         # Test one of the syntax forms
-        $this->assertEquals('TestMessageId1', $queue->sendMessage($mockMessage));
+        $this->assertEquals('TestMessageId1', $queue->sendMessage($this->mockMessage));
         # And the other form
-        $this->assertEquals('TestMessageId2', $mockMessage->send($queue));
+        $this->assertEquals('TestMessageId2', $this->mockMessage->send($queue));
         // Mock handler stack should be empty
         $this->assertEquals(0, $this->getAwsMockHandlerStackCount());
     }
@@ -63,10 +66,10 @@ class SqsTest extends PHPUnitTestCase
             'my-queue-name'
         );
 
-        $mockMessage = $this->getMockForAbstractClass(AbstractMessage::class, [111]);
+        $this->createAbstractMessageMock(111);
 
         for ($i = 0; $i < 25; $i++) {
-            $queue->sendMessageToBatch($mockMessage);
+            $queue->sendMessageToBatch($this->mockMessage);
         }
 
         // Destroy $queue object to send remaining messages
@@ -81,7 +84,7 @@ class SqsTest extends PHPUnitTestCase
      */
     public function testSendMessageQueueSendException()
     {
-        $mockMessage = $this->getMockForAbstractClass(AbstractMessage::class, [111]);
+        $this->createAbstractMessageMock(111);
 
         // Create an S3 client so that we can (easily) create an AWS Command object
         $sqsClient = $this->getMockedAwsSdk()->createSqs(['version' => '2012-11-05']);
@@ -100,7 +103,7 @@ class SqsTest extends PHPUnitTestCase
             'my-queue-name'
         );
 
-        $this->assertEquals('TestMessageId1', $queue->sendMessage($mockMessage));
+        $this->assertEquals('TestMessageId1', $queue->sendMessage($this->mockMessage));
     }
 
     /**
@@ -108,7 +111,7 @@ class SqsTest extends PHPUnitTestCase
      */
     public function testSendMessageToBatchQueueSendException()
     {
-        $mockMessage = $this->getMockForAbstractClass(AbstractMessage::class, [111]);
+        $this->createAbstractMessageMock(111);
 
         // Create an S3 client so that we can (easily) create an AWS Command object
         $sqsClient = $this->getMockedAwsSdk()->createSqs(['version' => '2012-11-05']);
@@ -127,7 +130,7 @@ class SqsTest extends PHPUnitTestCase
             'my-queue-name'
         );
 
-        $this->assertEquals('TestMessageId1', $queue->sendMessageToBatch($mockMessage));
+        $queue->sendMessageToBatch($this->mockMessage);
     }
 
     /**
@@ -160,9 +163,9 @@ class SqsTest extends PHPUnitTestCase
         $userId = 666;
         $params = ['param1' => 'val1', 'param2' => 22];
 
-        $mockMessage = $this->getMockForAbstractClass(AbstractMessage::class, [666, $params]);
+        $this->createAbstractMessageMock(666, $params);
 
-        $sqsSendParams = $queue->messageToSqsSendParams($mockMessage);
+        $sqsSendParams = $queue->messageToSqsSendParams($this->mockMessage);
 
         $sqsReceiveResult = [
             'Body'              => $sqsSendParams['MessageBody'],
@@ -172,7 +175,7 @@ class SqsTest extends PHPUnitTestCase
 
         $receivedMockMessage = Sqs::createMessage(
             $sqsReceiveResult,
-            [$mockMessage->getType() => get_class($mockMessage)]
+            [$this->mockMessage->getType() => get_class($this->mockMessage)]
         );
 
         $this->assertEquals($receivedMockMessage->getUserId(), $userId);
@@ -279,5 +282,16 @@ class SqsTest extends PHPUnitTestCase
     protected function getAwsMockHandlerStackCount()
     {
         return $this->mockHandler->count();
+    }
+
+    /**
+     * @return AbstractMessage
+     */
+    private function createAbstractMessageMock($userId, $params = [])
+    {
+        $this->mockMessage = $this->getMockForAbstractClass(
+            AbstractMessage::class,
+            [$userId, $params]
+        );
     }
 }
