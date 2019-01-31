@@ -27,6 +27,18 @@ class UserUpdate extends AbstractMessage
     const NO_VALUE_CONTACT_ME = 4;
 
     /**
+     * Creates a new message instance
+     *
+     * @param int   $userId    User ID
+     * @param array $params      Array of message parameters
+     * @return self
+     */
+    public static function create(int $userId, array $params = []): self
+    {
+        return new static($userId, $params);
+    }
+
+    /**
      * Set user email address
      *
      * @param string    $email  Email address

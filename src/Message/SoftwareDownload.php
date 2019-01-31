@@ -15,6 +15,18 @@ class SoftwareDownload extends AbstractMessage
     const OS = 'os';
 
     /**
+     * Creates a new message instance
+     *
+     * @param int   $userId    User ID
+     * @param array $params      Array of message parameters
+     * @return self
+     */
+    public static function create(int $userId, array $params = []): self
+    {
+        return new static($userId, $params);
+    }
+
+    /**
      * Set the name of the software download
      *
      * @param string    $software   Software name

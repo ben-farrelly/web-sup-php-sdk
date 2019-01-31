@@ -19,6 +19,17 @@ class SubscriptionProductUpdate extends AbstractMessage
     const NUMBER_OF_BILLING_CYCLES = 'numberOfBillingCycles';
     const CURRENT_BILLING_CYCLE = 'currentBillingCycle';
 
+    /**
+     * Creates a new message instance
+     *
+     * @param int   $userId    User ID
+     * @param array $params      Array of message parameters
+     * @return self
+     */
+    public static function create(int $userId, array $params = []): self
+    {
+        return new static($userId, $params);
+    }
 
     /**
      * Set the number of billing cycles for Subscription

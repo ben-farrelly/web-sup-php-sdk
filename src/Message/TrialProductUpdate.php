@@ -17,6 +17,18 @@ class TrialProductUpdate extends AbstractMessage
     const EXPIRY = 'expiry';
 
     /**
+     * Creates a new message instance
+     *
+     * @param int   $userId    User ID
+     * @param array $params      Array of message parameters
+     * @return self
+     */
+    public static function create(int $userId, array $params = []): self
+    {
+        return new static($userId, $params);
+    }
+
+    /**
      * Set the trial Product Type name
      *
      * @param string $productName    Trial Product name

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Serato\UserProfileSdk\Test\Message;
 
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;

@@ -58,18 +58,6 @@ class AbstractMessage
     }
 
     /**
-     * Creates a new message instance
-     *
-     * @param int   $userId    User ID
-     * @param array $params      Array of message parameters
-     * @return self
-     */
-    public static function create(int $userId, array $params = []): self
-    {
-        return new static($userId, $params);
-    }
-
-    /**
      * Returns the message params
      *
      * @return array
