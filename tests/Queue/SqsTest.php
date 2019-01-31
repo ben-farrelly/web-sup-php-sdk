@@ -163,9 +163,9 @@ class SqsTest extends PHPUnitTestCase
         $userId = 666;
         $params = ['param1' => 'val1', 'param2' => 22];
 
-        $this->createAbstractMessageMock(666, $params);
+        $mockMessage = TestMessage::create(666, $params);
 
-        $sqsSendParams = $queue->messageToSqsSendParams($this->mockMessage);
+        $sqsSendParams = $queue->messageToSqsSendParams($mockMessage);
 
         $sqsReceiveResult = [
             'Body'              => $sqsSendParams['MessageBody'],
@@ -175,7 +175,7 @@ class SqsTest extends PHPUnitTestCase
 
         $receivedMockMessage = Sqs::createMessage(
             $sqsReceiveResult,
-            [$this->mockMessage->getType() => get_class($this->mockMessage)]
+            [$mockMessage->getType() => get_class($mockMessage)]
         );
 
         $this->assertEquals($receivedMockMessage->getUserId(), $userId);
