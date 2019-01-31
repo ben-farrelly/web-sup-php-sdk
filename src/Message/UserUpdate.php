@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Serato\UserProfileSdk\Message;
 
 use Serato\UserProfileSdk\Message\AbstractMessage;
@@ -32,7 +34,8 @@ class UserUpdate extends AbstractMessage
      */
     public function setEmail($email)
     {
-        return $this->setParam(self::EMAIL, $email);
+        $this->setParam(self::EMAIL, $email);
+        return $this;
     }
 
     /**
@@ -53,7 +56,8 @@ class UserUpdate extends AbstractMessage
      */
     public function setDaw($dawOption)
     {
-        return $this->setParam(self::DAW, $dawOption);
+        $this->setParam(self::DAW, $dawOption);
+        return $this;
     }
 
     /**
@@ -74,7 +78,8 @@ class UserUpdate extends AbstractMessage
      */
     public function setHasDjHardware($hardware)
     {
-        return $this->setParam(self::HAS_DJ_HARDWARE, $hardware);
+        $this->setParam(self::HAS_DJ_HARDWARE, $hardware);
+        return $this;
     }
 
     /**
@@ -95,7 +100,8 @@ class UserUpdate extends AbstractMessage
      */
     public function setLanguage($language)
     {
-        return $this->setParam(self::LANGUAGE, $language);
+        $this->setParam(self::LANGUAGE, $language);
+        return $this;
     }
 
     /**
@@ -116,7 +122,8 @@ class UserUpdate extends AbstractMessage
      */
     public function setCountry($country)
     {
-        return $this->setParam(self::COUNTRY, $country);
+        $this->setParam(self::COUNTRY, $country);
+        return $this;
     }
 
     /**
@@ -137,7 +144,8 @@ class UserUpdate extends AbstractMessage
      */
     public function setHistoricalMailchimpSubscribed($subscribed)
     {
-        return $this->setParam(self::HISTORICAL_MAILCHIMP_SUBSCRIBED, $subscribed);
+        $this->setParam(self::HISTORICAL_MAILCHIMP_SUBSCRIBED, $subscribed);
+        return $this;
     }
 
     /**
@@ -163,7 +171,8 @@ class UserUpdate extends AbstractMessage
      */
     public function setGlobalContactMe($globalContactMe)
     {
-        return $this->setParam(self::GLOBAL_CONTACT_ME, $globalContactMe);
+        $this->setParam(self::GLOBAL_CONTACT_ME, $globalContactMe);
+        return $this;
     }
 
     /**

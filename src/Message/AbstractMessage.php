@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Serato\UserProfileSdk\Message;
 
 use Serato\UserProfileSdk\Queue\AbstractMessageQueue;
@@ -24,10 +26,10 @@ class AbstractMessage
     /**
      * Constructs the instance
      *
-     * @param int   $userId    User ID
-     * @param array $body      Array of message parameters
+     * @param int   $userId         User ID
+     * @param array $params         Array of message parameters
      */
-    public function __construct($userId, array $params = [])
+    public function __construct(int $userId, array $params = [])
     {
         $this->userId = $userId;
         $this->params = $params;
@@ -50,7 +52,7 @@ class AbstractMessage
      * @param AbstractMessageQueue  $queue  A concrete abstract queue instance
      * @return void
      */
-    public function sendToBatch(AbstractMessageQueue $queue)
+    public function sendToBatch(AbstractMessageQueue $queue): void
     {
         $queue->sendMessageToBatch($this);
     }
@@ -59,10 +61,10 @@ class AbstractMessage
      * Creates a new message instance
      *
      * @param int   $userId    User ID
-     * @param array $body      Array of message parameters
+     * @param array $params      Array of message parameters
      * @return self
      */
-    public static function create($userId, array $params = [])
+    public static function create(int $userId, array $params = []): self
     {
         return new static($userId, $params);
     }
@@ -72,7 +74,7 @@ class AbstractMessage
      *
      * @return array
      */
-    public function getParams()
+    public function getParams(): array
     {
         return $this->params;
     }
@@ -82,7 +84,7 @@ class AbstractMessage
      *
      * @return int
      */
-    public function getUserId()
+    public function getUserId(): int
     {
         return $this->userId;
     }
@@ -92,7 +94,7 @@ class AbstractMessage
      *
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         $className = get_class($this);
         return substr($className, strrpos($className, '\\') + 1);
@@ -103,12 +105,11 @@ class AbstractMessage
      *
      * @param string    $name   Parameter name
      * @param mixed     $value  Parameter value
-     * @return self
+     * @return void
      */
-    protected function setParam($name, $value)
+    protected function setParam($name, $value): void
     {
         $this->params[$name] = $value;
-        return $this;
     }
 
     /**

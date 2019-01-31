@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Serato\UserProfileSdk\Queue;
 
 use Serato\UserProfileSdk\Message\AbstractMessage;
@@ -39,7 +41,7 @@ abstract class AbstractMessageQueue
      *
      * @throws QueueSendException
      */
-    abstract public function sendMessageToBatch(AbstractMessage $message);
+    abstract public function sendMessageToBatch(AbstractMessage $message): void;
 
     /**
      * Wrap a `AbstractMessage` instance's body with the name of the child
@@ -48,7 +50,7 @@ abstract class AbstractMessageQueue
      * @param AbstractMessage   $message    Message instance
      * @return array
      */
-    protected function getWrappedMessageBody(AbstractMessage $message)
+    protected function getWrappedMessageBody(AbstractMessage $message): array
     {
         return [
             self::MESSAGE_TYPE   => $message->getType(),
@@ -92,7 +94,7 @@ abstract class AbstractMessageQueue
      *
      * @return array
      */
-    private static function getDefaultClassMap()
+    private static function getDefaultClassMap(): array
     {
         $map = [];
         $ns = '\\Serato\\UserProfileSdk\\Message\\';

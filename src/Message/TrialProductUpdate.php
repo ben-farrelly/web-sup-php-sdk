@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Serato\UserProfileSdk\Message;
 
 use Serato\UserProfileSdk\Message\AbstractMessage;
@@ -22,7 +24,8 @@ class TrialProductUpdate extends AbstractMessage
      */
     public function setProductName($productName)
     {
-        return $this->setParam(self::PRODUCT_NAME, $productName);
+        $this->setParam(self::PRODUCT_NAME, $productName);
+        return $this;
     }
 
     /**
@@ -46,7 +49,8 @@ class TrialProductUpdate extends AbstractMessage
      */
     public function setExpiry($expiryDate)
     {
-        return $this->setParam(self::EXPIRY, $expiryDate);
+        $this->setParam(self::EXPIRY, $expiryDate);
+        return $this;
     }
 
     /**
@@ -63,11 +67,11 @@ class TrialProductUpdate extends AbstractMessage
      * Set expiry timestamp for trial
      *
      * @param int $timestamp
-     *
-     * @return string
+     * @return self
      */
     public function setExpiryTimestamp($timestamp)
     {
-        return $this->setExpiry(gmdate(DATE_ATOM, $timestamp));
+        $this->setExpiry(gmdate(DATE_ATOM, $timestamp));
+        return $this;
     }
 }

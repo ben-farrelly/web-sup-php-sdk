@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Serato\UserProfileSdk\Message;
 
 use Serato\UserProfileSdk\Message\AbstractMessage;
@@ -26,7 +28,8 @@ class SubscriptionProductUpdate extends AbstractMessage
      */
     public function setNumberOfBillingCycles($numberOfBillingCycles)
     {
-        return $this->setParam(self::NUMBER_OF_BILLING_CYCLES, $numberOfBillingCycles);
+        $this->setParam(self::NUMBER_OF_BILLING_CYCLES, $numberOfBillingCycles);
+        return $this;
     }
 
     /**
@@ -47,7 +50,8 @@ class SubscriptionProductUpdate extends AbstractMessage
      */
     public function setCurrentBillingCycle($currentBillingCycle)
     {
-        return $this->setParam(self::CURRENT_BILLING_CYCLE, $currentBillingCycle);
+        $this->setParam(self::CURRENT_BILLING_CYCLE, $currentBillingCycle);
+        return $this;
     }
 
     /**
@@ -68,7 +72,8 @@ class SubscriptionProductUpdate extends AbstractMessage
      */
     public function setStatus($status)
     {
-        return $this->setParam(self::STATUS, $status);
+        $this->setParam(self::STATUS, $status);
+        return $this;
     }
 
     /**
@@ -89,7 +94,8 @@ class SubscriptionProductUpdate extends AbstractMessage
      */
     public function setPlan($planName)
     {
-        return $this->setParam(self::PLAN, $planName);
+        $this->setParam(self::PLAN, $planName);
+        return $this;
     }
 
     /**
@@ -113,7 +119,8 @@ class SubscriptionProductUpdate extends AbstractMessage
      */
     public function setExpiry($expiryDate)
     {
-        return $this->setParam(self::EXPIRY, $expiryDate);
+        $this->setParam(self::EXPIRY, $expiryDate);
+        return $this;
     }
 
     /**
@@ -130,11 +137,11 @@ class SubscriptionProductUpdate extends AbstractMessage
      * Set expiry timestamp for subscription
      *
      * @param int $timestamp
-     *
-     *  @return string
+     * @return self
      */
     public function setExpiryTimestamp($timestamp)
     {
-        return $this->setExpiry(gmdate(DATE_ATOM, $timestamp));
+        $this->setExpiry(gmdate(DATE_ATOM, $timestamp));
+        return $this;
     }
 }

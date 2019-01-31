@@ -10,12 +10,14 @@ class TestMessage extends AbstractMessage
 {
     public function setScalarValue($val)
     {
-        return $this->setParam('scalarValue', $val);
+        $this->setParam('scalarValue', $val);
+        return $this;
     }
 
     public function setArrayValue(array $val)
     {
-        return $this->setParam('arrayValue', $val);
+        $this->setParam('arrayValue', $val);
+        return $this;
     }
 
     public function getScalarValue()

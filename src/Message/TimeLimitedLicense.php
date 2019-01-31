@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Serato\UserProfileSdk\Message;
 
 use Serato\UserProfileSdk\Message\AbstractMessage;
@@ -21,9 +23,7 @@ class TimeLimitedLicense extends AbstractMessage
     public function __construct($userId, array $params = [])
     {
         parent::__construct($userId, $params);
-        if ($this->getLicenseAction() === null) {
-            $this->setLicenseAction(self::ADD);
-        }
+        $this->setLicenseAction(self::ADD);
     }
 
     /**
@@ -34,7 +34,8 @@ class TimeLimitedLicense extends AbstractMessage
      */
     public function setLicenseTypeId($licenseTypeId)
     {
-        return $this->setParam(self::LICENSE_TYPE_ID, $licenseTypeId);
+        $this->setParam(self::LICENSE_TYPE_ID, $licenseTypeId);
+        return $this;
     }
 
     /**
@@ -55,7 +56,8 @@ class TimeLimitedLicense extends AbstractMessage
      */
     public function setLicenseId($licenseId)
     {
-        return $this->setParam(self::LICENSE_ID, $licenseId);
+        $this->setParam(self::LICENSE_ID, $licenseId);
+        return $this;
     }
 
     /**
@@ -76,7 +78,8 @@ class TimeLimitedLicense extends AbstractMessage
      */
     public function setLicenseAction($action)
     {
-        return $this->setParam(self::LICENSE_ACTION, $action);
+        $this->setParam(self::LICENSE_ACTION, $action);
+        return $this;
     }
 
     /**
@@ -100,7 +103,8 @@ class TimeLimitedLicense extends AbstractMessage
      */
     public function setExpiry($expiryDate)
     {
-        return $this->setParam(self::EXPIRY, $expiryDate);
+        $this->setParam(self::EXPIRY, $expiryDate);
+        return $this;
     }
 
     /**
@@ -117,11 +121,11 @@ class TimeLimitedLicense extends AbstractMessage
      * Set expiry timestamp for Time Limited License
      *
      * @param int $timestamp
-     *
-     *  @return string
+     * @return self
      */
     public function setExpiryTimestamp($timestamp)
     {
-        return $this->setExpiry(gmdate(DATE_ATOM, $timestamp));
+        $this->setExpiry(gmdate(DATE_ATOM, $timestamp));
+        return $this;
     }
 }

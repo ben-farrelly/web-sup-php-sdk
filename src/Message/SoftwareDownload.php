@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Serato\UserProfileSdk\Message;
 
 use Serato\UserProfileSdk\Message\AbstractMessage;
@@ -20,7 +22,8 @@ class SoftwareDownload extends AbstractMessage
      */
     public function setSoftwareName($software)
     {
-        return $this->setParam(self::SOFTWARE_NAME, $software);
+        $this->setParam(self::SOFTWARE_NAME, $software);
+        return $this;
     }
 
     /**
@@ -41,7 +44,8 @@ class SoftwareDownload extends AbstractMessage
      */
     public function setOS($os)
     {
-        return $this->setParam(self::OS, $os);
+        $this->setParam(self::OS, $os);
+        return $this;
     }
 
     /**
@@ -67,7 +71,8 @@ class SoftwareDownload extends AbstractMessage
      */
     public function setVersion($version)
     {
-        return $this->setParam(self::VERSION, $version);
+        $this->setParam(self::VERSION, $version);
+        return $this;
     }
 
     /**

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Serato\UserProfileSdk\Queue;
 
 use Aws\Sdk;
@@ -20,7 +22,6 @@ use Ramsey\Uuid\Uuid;
 class Sqs extends AbstractMessageQueue
 {
     const MAX_BATCH_SIZE = 10;
-    const FIFO_QUEUE = true;
 
     /* @var SqsClient */
     private $sqsClient;
@@ -33,6 +34,9 @@ class Sqs extends AbstractMessageQueue
 
     /* @var array */
     private $messageBatch = [];
+
+    /* @var boolean */
+    private $fifoQueue = true;
 
     /**
      * Constructs the instance
@@ -72,21 +76,21 @@ class Sqs extends AbstractMessageQueue
     /**
      * {@inheritdoc}
      */
-    public function sendMessageToBatch(AbstractMessage $message)
+    public function sendMessageToBatch(AbstractMessage $message): void
     {
         if (count($this->messageBatch) === self::MAX_BATCH_SIZE) {
             $this->sendMessageBatch();
         }
-        $this->messageBatch[] = $this->messageToSqsSendParams($message, count($this->messageBatch));
+        $this->messageBatch[] = $this->messageToSqsSendParams($message, (string)count($this->messageBatch));
     }
 
     /**
      * Return an `AbstractMessage` instance from a raw queue message
      *
-     * @param mixed   $body         A raw queue message
+     * @param mixed   $sqsMessage   A raw queue message
      * @param array   $classMap     A map of message types to class names (optional)
      *
-     * @return bool     Indicates delivery success
+     * @return bool   Indicates delivery success
      *
      * @throws InvalidMessageBodyException
      */
@@ -123,7 +127,7 @@ class Sqs extends AbstractMessageQueue
      *                                              messages (required for batch operations)
      * @return array
      */
-    public function messageToSqsSendParams(AbstractMessage $message, $batchMessageId = null)
+    public function messageToSqsSendParams(AbstractMessage $message, string $batchMessageId = null)
     {
         return array_merge(
             [
@@ -136,12 +140,12 @@ class Sqs extends AbstractMessageQueue
                 'MessageBody'               => json_encode($this->getWrappedMessageBody($message)),
                 'MessageDeduplicationId'    => Uuid::uuid4()->toString()
             ],
-            (self::FIFO_QUEUE ? ['MessageGroupId' => (string)$message->getUserId()] : []),
+            ($this->fifoQueue ? ['MessageGroupId' => (string)$message->getUserId()] : []),
             // If message is NOT part of batch add the queue URL
             // If it IS part of batch add the message ID
             ($batchMessageId === null ?
                 ['QueueUrl' => $this->getQueueUrl()] :
-                ['Id' => (string)$batchMessageId]
+                ['Id' => $batchMessageId]
             )
         );
     }
@@ -164,7 +168,7 @@ class Sqs extends AbstractMessageQueue
                         # Create queue with long polling enabled
                         'ReceiveMessageWaitTimeSeconds' => 20
                     ];
-                    if (self::FIFO_QUEUE) {
+                    if ($this->fifoQueue) {
                         $attributes['FifoQueue'] = 'true';
                     }
                     $result = $this->sqsClient->createQueue([
@@ -206,7 +210,7 @@ class Sqs extends AbstractMessageQueue
      */
     private function getRealQueueName()
     {
-        return $this->sqsQueueName . (self::FIFO_QUEUE ? '.fifo' : '');
+        return $this->sqsQueueName . ($this->fifoQueue ? '.fifo' : '');
     }
 
     /**

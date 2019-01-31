@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Serato\UserProfileSdk\Message;
 
 use Serato\UserProfileSdk\Message\AbstractMessage;
@@ -21,9 +23,7 @@ class PermanentLicense extends AbstractMessage
     public function __construct($userId, array $params = [])
     {
         parent::__construct($userId, $params);
-        if ($this->getLicenseAction() === null) {
-            $this->setLicenseAction(self::ADD);
-        }
+        $this->setLicenseAction(self::ADD);
     }
 
     /**
@@ -32,9 +32,10 @@ class PermanentLicense extends AbstractMessage
      * @param int $licenseTypeId
      * @return self
      */
-    public function setLicenseTypeId($licenseTypeId)
+    public function setLicenseTypeId($licenseTypeId): self
     {
-        return $this->setParam(self::LICENSE_TYPE_ID, $licenseTypeId);
+        $this->setParam(self::LICENSE_TYPE_ID, $licenseTypeId);
+        return $this;
     }
 
     /**
@@ -42,7 +43,7 @@ class PermanentLicense extends AbstractMessage
      *
      * @return int
      */
-    public function getLicenseTypeId()
+    public function getLicenseTypeId(): int
     {
         return $this->getParam(self::LICENSE_TYPE_ID);
     }
@@ -53,9 +54,10 @@ class PermanentLicense extends AbstractMessage
      * @param string $action
      * @return self
      */
-    public function setLicenseAction($action)
+    public function setLicenseAction($action): self
     {
-        return $this->setParam(self::LICENSE_ACTION, $action);
+        $this->setParam(self::LICENSE_ACTION, $action);
+        return $this;
     }
 
     /**
@@ -63,7 +65,7 @@ class PermanentLicense extends AbstractMessage
      *
      * @return string
      */
-    public function getLicenseAction()
+    public function getLicenseAction(): string
     {
         return $this->getParam(self::LICENSE_ACTION);
     }
@@ -74,9 +76,10 @@ class PermanentLicense extends AbstractMessage
      * @param string $licenseId
      * @return self
      */
-    public function setLicenseId($licenseId)
+    public function setLicenseId($licenseId): self
     {
-        return $this->setParam(self::LICENSE_ID, $licenseId);
+        $this->setParam(self::LICENSE_ID, $licenseId);
+        return $this;
     }
 
     /**
@@ -84,7 +87,7 @@ class PermanentLicense extends AbstractMessage
      *
      * @return string
      */
-    public function getLicenseId()
+    public function getLicenseId(): string
     {
         return $this->getParam(self::LICENSE_ID);
     }
