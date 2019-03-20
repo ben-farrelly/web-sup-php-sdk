@@ -32,7 +32,7 @@ class UserUpdateTest extends PHPUnitTestCase
                         ->setLanguage($language)
                         ->setCountry($country)
                         ->setHistoricalMailchimpSubscribed($mcHistoricalSubscribed)
-                        ->setGlobalContactMe($globalContactMe),
+                        ->setGlobalContactMe($globalContactMe)
                         ->setGroups($groups);
 
         $this->assertEquals('UserUpdate', $userUpdate->getType());

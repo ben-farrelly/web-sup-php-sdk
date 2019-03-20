@@ -219,5 +219,4 @@ class UserUpdate extends AbstractMessage
     {
         return $this->getParam(self::GROUPS);
     }
-
 }
