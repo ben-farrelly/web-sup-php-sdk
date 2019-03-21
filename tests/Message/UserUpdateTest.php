@@ -18,6 +18,12 @@ class UserUpdateTest extends PHPUnitTestCase
         $country = 'US';
         $mcHistoricalSubscribed = false;
         $globalContactMe = 3;
+        $groups = [
+            'domain' => 'serato',
+            'category' => 'beta',
+            'name' => 'Serato DJ Private Beta',
+            'id' => '22685'
+        ];
 
         $userUpdate = UserUpdate::create($userId)
                         ->setEmail($email)
@@ -26,7 +32,8 @@ class UserUpdateTest extends PHPUnitTestCase
                         ->setLanguage($language)
                         ->setCountry($country)
                         ->setHistoricalMailchimpSubscribed($mcHistoricalSubscribed)
-                        ->setGlobalContactMe($globalContactMe);
+                        ->setGlobalContactMe($globalContactMe)
+                        ->setGroups($groups);
 
         $this->assertEquals('UserUpdate', $userUpdate->getType());
         $this->assertEquals($email, $userUpdate->getEmail());
@@ -36,5 +43,6 @@ class UserUpdateTest extends PHPUnitTestCase
         $this->assertEquals($country, $userUpdate->getCountry());
         $this->assertEquals($mcHistoricalSubscribed, $userUpdate->getHistoricalMailchimpSubscribed());
         $this->assertEquals($globalContactMe, $userUpdate->getGlobalContactMe());
+        $this->assertEquals($groups, $userUpdate->getGroups());
     }
 }

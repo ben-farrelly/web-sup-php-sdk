@@ -25,6 +25,7 @@ class UserUpdate extends AbstractMessage
     const EXPLICIT_OPT_OUT = 2;
     const EXPLICIT_OPT_IN = 3;
     const NO_VALUE_CONTACT_ME = 4;
+    const GROUPS = 'groups';
 
     /**
      * Creates a new message instance
@@ -174,10 +175,10 @@ class UserUpdate extends AbstractMessage
      * Set notification setting
      *
      * @param int $globalContactMe This value should be one of:
-     *      slef::IMPLICIT_OPT_OUT
-     *      slef::IMPLICIT_OPT_IN
-     *      slef::EXPLICIT_OPT_OUT
-     *      slef::EXPLICIT_OPT_IN
+     *      self::IMPLICIT_OPT_OUT
+     *      self::IMPLICIT_OPT_IN
+     *      self::EXPLICIT_OPT_OUT
+     *      self::EXPLICIT_OPT_IN
      *      self::NO_VALUE_CONTACT_ME
      * @return self
      */
@@ -195,5 +196,27 @@ class UserUpdate extends AbstractMessage
     public function getGlobalContactMe()
     {
         return $this->getParam(self::GLOBAL_CONTACT_ME);
+    }
+
+    /**
+     * Set user's group membership (only for some groups, see included_sup column)
+     *
+     * @param array $groups
+     * @return self
+     */
+    public function setGroups($groups)
+    {
+        $this->setParam(self::GROUPS, $groups);
+        return $this;
+    }
+
+    /**
+     * Get user's group membership (only for some groups, see included_sup column)
+     *
+     * @return array
+     */
+    public function getGroups()
+    {
+        return $this->getParam(self::GROUPS);
     }
 }
