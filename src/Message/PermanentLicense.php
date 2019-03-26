@@ -20,7 +20,7 @@ class PermanentLicense extends AbstractMessage
     /**
      * {@inheritdoc}
      */
-    public function __construct($userId, array $params = [])
+    public function __construct(int $userId, array $params = [])
     {
         parent::__construct($userId, $params);
         $this->setLicenseAction(self::ADD);
@@ -44,7 +44,7 @@ class PermanentLicense extends AbstractMessage
      * @param int $licenseTypeId
      * @return self
      */
-    public function setLicenseTypeId($licenseTypeId): self
+    public function setLicenseTypeId(int $licenseTypeId): self
     {
         $this->setParam(self::LICENSE_TYPE_ID, $licenseTypeId);
         return $this;
@@ -53,9 +53,9 @@ class PermanentLicense extends AbstractMessage
     /**
      * Get the license type id
      *
-     * @return int
+     * @return null | int
      */
-    public function getLicenseTypeId(): int
+    public function getLicenseTypeId(): ?int
     {
         return $this->getParam(self::LICENSE_TYPE_ID);
     }
@@ -66,7 +66,7 @@ class PermanentLicense extends AbstractMessage
      * @param string $action
      * @return self
      */
-    public function setLicenseAction($action): self
+    public function setLicenseAction(string $action): self
     {
         $this->setParam(self::LICENSE_ACTION, $action);
         return $this;
@@ -75,9 +75,9 @@ class PermanentLicense extends AbstractMessage
     /**
      * Get the license action
      *
-     * @return string
+     * @return null | string
      */
-    public function getLicenseAction(): string
+    public function getLicenseAction(): ?string
     {
         return $this->getParam(self::LICENSE_ACTION);
     }
@@ -88,7 +88,7 @@ class PermanentLicense extends AbstractMessage
      * @param string $licenseId
      * @return self
      */
-    public function setLicenseId($licenseId): self
+    public function setLicenseId(string $licenseId): self
     {
         $this->setParam(self::LICENSE_ID, $licenseId);
         return $this;
@@ -97,9 +97,9 @@ class PermanentLicense extends AbstractMessage
     /**
      * Get the license id
      *
-     * @return string
+     * @return null | string
      */
-    public function getLicenseId(): string
+    public function getLicenseId(): ?string
     {
         return $this->getParam(self::LICENSE_ID);
     }

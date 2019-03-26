@@ -17,7 +17,7 @@ class SoftwareDownload extends AbstractMessage
     /**
      * Creates a new message instance
      *
-     * @param int   $userId    User ID
+     * @param int   $userId      User ID
      * @param array $params      Array of message parameters
      * @return self
      */
@@ -32,7 +32,7 @@ class SoftwareDownload extends AbstractMessage
      * @param string    $software   Software name
      * @return self
      */
-    public function setSoftwareName($software)
+    public function setSoftwareName(string $software): self
     {
         $this->setParam(self::SOFTWARE_NAME, $software);
         return $this;
@@ -41,9 +41,9 @@ class SoftwareDownload extends AbstractMessage
     /**
      * Get the name of the software download
      *
-     * @return string
+     * @return null | string
      */
-    public function getSoftwareName()
+    public function getSoftwareName(): ?string
     {
         return $this->getParam(self::SOFTWARE_NAME);
     }
@@ -54,7 +54,7 @@ class SoftwareDownload extends AbstractMessage
      * @param string    $os    Operating system
      * @return self
      */
-    public function setOS($os)
+    public function setOS(string $os): self
     {
         $this->setParam(self::OS, $os);
         return $this;
@@ -63,9 +63,9 @@ class SoftwareDownload extends AbstractMessage
     /**
      * Get the operating system of the software download
      *
-     * @return string
+     * @return null | string
      */
-    public function getOS()
+    public function getOS(): ?string
     {
         return $this->getParam(self::OS);
     }
@@ -81,7 +81,7 @@ class SoftwareDownload extends AbstractMessage
      *
      * @return self
      */
-    public function setVersion($version)
+    public function setVersion(string $version): self
     {
         $this->setParam(self::VERSION, $version);
         return $this;
@@ -90,9 +90,9 @@ class SoftwareDownload extends AbstractMessage
     /**
      * Get the version of the software download
      *
-     * @return string
+     * @return null | string
      */
-    public function getVersion()
+    public function getVersion(): ?string
     {
         return $this->getParam(self::VERSION);
     }

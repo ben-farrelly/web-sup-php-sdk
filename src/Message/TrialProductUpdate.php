@@ -34,7 +34,7 @@ class TrialProductUpdate extends AbstractMessage
      * @param string $productName    Trial Product name
      * @return self
      */
-    public function setProductName($productName)
+    public function setProductName(string $productName): self
     {
         $this->setParam(self::PRODUCT_NAME, $productName);
         return $this;
@@ -43,9 +43,9 @@ class TrialProductUpdate extends AbstractMessage
     /**
      * Get trial Product Type name
      *
-     * @return string
+     * @return null | string
      */
-    public function getProductName()
+    public function getProductName(): ?string
     {
         return $this->getParam(self::PRODUCT_NAME);
     }
@@ -59,7 +59,7 @@ class TrialProductUpdate extends AbstractMessage
      * @param string $expiryDate    Trial expiry date
      * @return self
      */
-    public function setExpiry($expiryDate)
+    public function setExpiry(string $expiryDate): self
     {
         $this->setParam(self::EXPIRY, $expiryDate);
         return $this;
@@ -70,7 +70,7 @@ class TrialProductUpdate extends AbstractMessage
      *
      * @return string
      */
-    public function getExpiry()
+    public function getExpiry(): ?string
     {
         return $this->getParam(self::EXPIRY);
     }
@@ -81,7 +81,7 @@ class TrialProductUpdate extends AbstractMessage
      * @param int $timestamp
      * @return self
      */
-    public function setExpiryTimestamp($timestamp)
+    public function setExpiryTimestamp(int $timestamp): self
     {
         $this->setExpiry(gmdate(DATE_ATOM, $timestamp));
         return $this;
