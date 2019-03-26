@@ -182,7 +182,7 @@ class UserUpdate extends AbstractMessage
      *      self::NO_VALUE_CONTACT_ME
      * @return self
      */
-    public function setGlobalContactMe(int $globalContactMe): slef
+    public function setGlobalContactMe(int $globalContactMe): self
     {
         $this->setParam(self::GLOBAL_CONTACT_ME, $globalContactMe);
         return $this;
