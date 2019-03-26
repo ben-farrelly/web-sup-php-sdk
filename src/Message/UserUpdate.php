@@ -45,7 +45,7 @@ class UserUpdate extends AbstractMessage
      * @param string    $email  Email address
      * @return self
      */
-    public function setEmail($email)
+    public function setEmail(string $email): self
     {
         $this->setParam(self::EMAIL, $email);
         return $this;
@@ -67,7 +67,7 @@ class UserUpdate extends AbstractMessage
      * @param string $dawOption
      * @return self
      */
-    public function setDaw($dawOption)
+    public function setDaw(string $dawOption): self
     {
         $this->setParam(self::DAW, $dawOption);
         return $this;
@@ -76,9 +76,9 @@ class UserUpdate extends AbstractMessage
     /**
      * Get user primary DAW option
      *
-     * @return string
+     * @return null | string
      */
-    public function getDaw()
+    public function getDaw(): ?string
     {
         return $this->getParam(self::DAW);
     }
@@ -89,7 +89,7 @@ class UserUpdate extends AbstractMessage
      * @param bool $hardware
      * @return self
      */
-    public function setHasDjHardware($hardware)
+    public function setHasDjHardware(bool $hardware): self
     {
         $this->setParam(self::HAS_DJ_HARDWARE, $hardware);
         return $this;
@@ -98,9 +98,9 @@ class UserUpdate extends AbstractMessage
     /**
      * Returns whether or not the user has DJ hardware
      *
-     * @return bool
+     * @return null | bool
      */
-    public function getHasDjHardware()
+    public function getHasDjHardware(): ?bool
     {
         return $this->getParam(self::HAS_DJ_HARDWARE);
     }
@@ -111,7 +111,7 @@ class UserUpdate extends AbstractMessage
      * @param string $language
      * @return self
      */
-    public function setLanguage($language)
+    public function setLanguage(string $language): self
     {
         $this->setParam(self::LANGUAGE, $language);
         return $this;
@@ -120,9 +120,9 @@ class UserUpdate extends AbstractMessage
     /**
      * Get user language
      *
-     * @return string
+     * @return null | string
      */
-    public function getLanguage()
+    public function getLanguage(): ?string
     {
         return $this->getParam(self::LANGUAGE);
     }
@@ -133,7 +133,7 @@ class UserUpdate extends AbstractMessage
      * @param string $country
      * @return self
      */
-    public function setCountry($country)
+    public function setCountry(string $country): self
     {
         $this->setParam(self::COUNTRY, $country);
         return $this;
@@ -142,9 +142,9 @@ class UserUpdate extends AbstractMessage
     /**
      * Get user country
      *
-     * @return string
+     * @return null | string
      */
-    public function getCountry()
+    public function getCountry(): ?string
     {
         return $this->getParam(self::COUNTRY);
     }
@@ -155,7 +155,7 @@ class UserUpdate extends AbstractMessage
      * @param bool $subscribed
      * @return self
      */
-    public function setHistoricalMailchimpSubscribed($subscribed)
+    public function setHistoricalMailchimpSubscribed(bool $subscribed): self
     {
         $this->setParam(self::HISTORICAL_MAILCHIMP_SUBSCRIBED, $subscribed);
         return $this;
@@ -164,9 +164,9 @@ class UserUpdate extends AbstractMessage
     /**
      * Return whether or not the user is subscribed to the historical MailChimp list
      *
-     * @return bool
+     * @return null | bool
      */
-    public function getHistoricalMailchimpSubscribed()
+    public function getHistoricalMailchimpSubscribed(): ?bool
     {
         return $this->getParam(self::HISTORICAL_MAILCHIMP_SUBSCRIBED);
     }
@@ -182,7 +182,7 @@ class UserUpdate extends AbstractMessage
      *      self::NO_VALUE_CONTACT_ME
      * @return self
      */
-    public function setGlobalContactMe($globalContactMe)
+    public function setGlobalContactMe(int $globalContactMe): slef
     {
         $this->setParam(self::GLOBAL_CONTACT_ME, $globalContactMe);
         return $this;
@@ -191,9 +191,9 @@ class UserUpdate extends AbstractMessage
     /**
      * Get notification setting
      *
-     * @return int
+     * @return null | int
      */
-    public function getGlobalContactMe()
+    public function getGlobalContactMe(): ?int
     {
         return $this->getParam(self::GLOBAL_CONTACT_ME);
     }
@@ -204,7 +204,7 @@ class UserUpdate extends AbstractMessage
      * @param array $groups
      * @return self
      */
-    public function setGroups($groups)
+    public function setGroups(array $groups): self
     {
         $this->setParam(self::GROUPS, $groups);
         return $this;
@@ -213,9 +213,9 @@ class UserUpdate extends AbstractMessage
     /**
      * Get user's group membership (only for some groups, see included_sup column)
      *
-     * @return array
+     * @return null | array
      */
-    public function getGroups()
+    public function getGroups(): ?array
     {
         return $this->getParam(self::GROUPS);
     }

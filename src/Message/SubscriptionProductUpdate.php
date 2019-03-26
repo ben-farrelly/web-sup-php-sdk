@@ -37,7 +37,7 @@ class SubscriptionProductUpdate extends AbstractMessage
      * @param int   $numberOfBillingCycles  Subscription Number Of Billing Cycles
      * @return self
      */
-    public function setNumberOfBillingCycles($numberOfBillingCycles)
+    public function setNumberOfBillingCycles(int $numberOfBillingCycles): self
     {
         $this->setParam(self::NUMBER_OF_BILLING_CYCLES, $numberOfBillingCycles);
         return $this;
@@ -46,9 +46,9 @@ class SubscriptionProductUpdate extends AbstractMessage
     /**
      * Get the number of billing cycles for Subscription
      *
-     * @return int
+     * @return null | int
      */
-    public function getNumberOfBillingCycles()
+    public function getNumberOfBillingCycles(): ?int
     {
         return $this->getParam(self::NUMBER_OF_BILLING_CYCLES);
     }
@@ -59,7 +59,7 @@ class SubscriptionProductUpdate extends AbstractMessage
      * @param int    $currentBillingCycle  Subscription current billing cycle
      * @return self
      */
-    public function setCurrentBillingCycle($currentBillingCycle)
+    public function setCurrentBillingCycle(int $currentBillingCycle): self
     {
         $this->setParam(self::CURRENT_BILLING_CYCLE, $currentBillingCycle);
         return $this;
@@ -68,9 +68,9 @@ class SubscriptionProductUpdate extends AbstractMessage
     /**
      * Get the current billing cycle for Subscription
      *
-     * @return int
+     * @return null | int
      */
-    public function getCurrentBillingCycle()
+    public function getCurrentBillingCycle(): ?int
     {
         return $this->getParam(self::CURRENT_BILLING_CYCLE);
     }
@@ -81,7 +81,7 @@ class SubscriptionProductUpdate extends AbstractMessage
      * @param string    $status  Subscription status
      * @return self
      */
-    public function setStatus($status)
+    public function setStatus(string $status): self
     {
         $this->setParam(self::STATUS, $status);
         return $this;
@@ -90,9 +90,9 @@ class SubscriptionProductUpdate extends AbstractMessage
     /**
      * Get the status for Subscription
      *
-     * @return string
+     * @return null | string
      */
-    public function getStatus()
+    public function getStatus(): ?string
     {
         return $this->getParam(self::STATUS);
     }
@@ -103,7 +103,7 @@ class SubscriptionProductUpdate extends AbstractMessage
      * @param string    $planName  Subscription plan name
      * @return self
      */
-    public function setPlan($planName)
+    public function setPlan(string $planName): self
     {
         $this->setParam(self::PLAN, $planName);
         return $this;
@@ -112,9 +112,9 @@ class SubscriptionProductUpdate extends AbstractMessage
     /**
      * Get the plan name for Subscription
      *
-     * @return string
+     * @return null | string
      */
-    public function getPlan()
+    public function getPlan(): ?string
     {
         return $this->getParam(self::PLAN);
     }
@@ -128,7 +128,7 @@ class SubscriptionProductUpdate extends AbstractMessage
      * @param string    $expiryDate    Subscription expiry date
      * @return self
      */
-    public function setExpiry($expiryDate)
+    public function setExpiry(string $expiryDate): self
     {
         $this->setParam(self::EXPIRY, $expiryDate);
         return $this;
@@ -137,9 +137,9 @@ class SubscriptionProductUpdate extends AbstractMessage
     /**
      * Get the expiry date for Subscription
      *
-     * @return string
+     * @return null | string
      */
-    public function getExpiry()
+    public function getExpiry(): ?string
     {
         return $this->getParam(self::EXPIRY);
     }
@@ -150,7 +150,7 @@ class SubscriptionProductUpdate extends AbstractMessage
      * @param int $timestamp
      * @return self
      */
-    public function setExpiryTimestamp($timestamp)
+    public function setExpiryTimestamp(int $timestamp): self
     {
         $this->setExpiry(gmdate(DATE_ATOM, $timestamp));
         return $this;

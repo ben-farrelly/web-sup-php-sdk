@@ -20,7 +20,7 @@ class TimeLimitedLicense extends AbstractMessage
     /**
      * {@inheritdoc}
      */
-    public function __construct($userId, array $params = [])
+    public function __construct(int $userId, array $params = [])
     {
         parent::__construct($userId, $params);
         $this->setLicenseAction(self::ADD);
@@ -44,7 +44,7 @@ class TimeLimitedLicense extends AbstractMessage
      * @param int $licenseTypeId
      * @return self
      */
-    public function setLicenseTypeId($licenseTypeId)
+    public function setLicenseTypeId(int $licenseTypeId): self
     {
         $this->setParam(self::LICENSE_TYPE_ID, $licenseTypeId);
         return $this;
@@ -53,9 +53,9 @@ class TimeLimitedLicense extends AbstractMessage
     /**
      * Get the license type id
      *
-     * @return int
+     * @return null | int
      */
-    public function getLicenseTypeId()
+    public function getLicenseTypeId(): ?int
     {
         return $this->getParam(self::LICENSE_TYPE_ID);
     }
@@ -66,7 +66,7 @@ class TimeLimitedLicense extends AbstractMessage
      * @param string $licenseId
      * @return self
      */
-    public function setLicenseId($licenseId)
+    public function setLicenseId(string $licenseId): self
     {
         $this->setParam(self::LICENSE_ID, $licenseId);
         return $this;
@@ -75,9 +75,9 @@ class TimeLimitedLicense extends AbstractMessage
     /**
      * Get the license id
      *
-     * @return string
+     * @return null | string
      */
-    public function getLicenseId()
+    public function getLicenseId(): ?string
     {
         return $this->getParam(self::LICENSE_ID);
     }
@@ -88,7 +88,7 @@ class TimeLimitedLicense extends AbstractMessage
      * @param string $action
      * @return self
      */
-    public function setLicenseAction($action)
+    public function setLicenseAction(string $action): self
     {
         $this->setParam(self::LICENSE_ACTION, $action);
         return $this;
@@ -97,9 +97,9 @@ class TimeLimitedLicense extends AbstractMessage
     /**
      * Get the license action
      *
-     * @return string
+     * @return null | string
      */
-    public function getLicenseAction()
+    public function getLicenseAction(): ?string
     {
         return $this->getParam(self::LICENSE_ACTION);
     }
@@ -113,7 +113,7 @@ class TimeLimitedLicense extends AbstractMessage
      * @param string    $expiryDate    Time Limited License expiry date
      * @return self
      */
-    public function setExpiry($expiryDate)
+    public function setExpiry(string $expiryDate): self
     {
         $this->setParam(self::EXPIRY, $expiryDate);
         return $this;
@@ -122,9 +122,9 @@ class TimeLimitedLicense extends AbstractMessage
     /**
      * Get the expiry date for Time Limited License
      *
-     * @return string
+     * @return null | string
      */
-    public function getExpiry()
+    public function getExpiry(): ?string
     {
         return $this->getParam(self::EXPIRY);
     }
@@ -135,7 +135,7 @@ class TimeLimitedLicense extends AbstractMessage
      * @param int $timestamp
      * @return self
      */
-    public function setExpiryTimestamp($timestamp)
+    public function setExpiryTimestamp(int $timestamp): self
     {
         $this->setExpiry(gmdate(DATE_ATOM, $timestamp));
         return $this;
