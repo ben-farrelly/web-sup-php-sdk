@@ -28,6 +28,17 @@ class UserGroupTest extends PHPUnitTestCase
         $this->assertEquals($groups, $userGroup->getGroups());
     }
 
+    public function testSettersWithEmptyArray()
+    {
+        $userId = 123;
+        $groups = [];
+
+        $userGroup = UserGroup::create($userId)->setGroups($groups);
+
+        $this->assertEquals('UserGroup', $userGroup->getType());
+        $this->assertEquals($groups, $userGroup->getGroups());
+    }
+
     /**
      * @expectedException Serato\UserProfileSdk\Exception\InvalidUserGroupMessageException
      */
@@ -57,6 +68,16 @@ class UserGroupTest extends PHPUnitTestCase
                 UserGroup::NAME => 5
             ]
         ];
+        $userGroup = UserGroup::create($userId)->setGroups($groups);
+    }
+
+    /**
+     * @expectedException Serato\UserProfileSdk\Exception\InvalidUserGroupMessageException
+     */
+    public function testSettersWithIncorrectValues3()
+    {
+        $userId = 123;
+        $groups = ["invalidData"];
         $userGroup = UserGroup::create($userId)->setGroups($groups);
     }
 
