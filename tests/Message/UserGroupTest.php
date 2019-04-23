@@ -42,7 +42,6 @@ class UserGroupTest extends PHPUnitTestCase
             ]
         ];
         $userGroup = UserGroup::create($userId)->setGroups($groups);
-        $this->assertEquals($groups, $userGroup->getGroups());
     }
 
     /**
@@ -59,7 +58,6 @@ class UserGroupTest extends PHPUnitTestCase
             ]
         ];
         $userGroup = UserGroup::create($userId)->setGroups($groups);
-        $this->assertEquals($groups, $userGroup->getGroups());
     }
 
     /**
@@ -75,7 +73,6 @@ class UserGroupTest extends PHPUnitTestCase
             ]
         ];
         $userGroup = UserGroup::create($userId)->setGroups($groups);
-        $this->assertEquals($groups, $userGroup->getGroups());
     }
 
     /**
@@ -94,6 +91,5 @@ class UserGroupTest extends PHPUnitTestCase
             ]
         ];
         $userGroup = UserGroup::create($userId)->setGroups($groups);
-        $this->assertEquals($groups, $userGroup->getGroups());
     }
 }
