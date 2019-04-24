@@ -25,7 +25,6 @@ class UserUpdate extends AbstractMessage
     const EXPLICIT_OPT_OUT = 2;
     const EXPLICIT_OPT_IN = 3;
     const NO_VALUE_CONTACT_ME = 4;
-    const GROUPS = 'groups';
 
     /**
      * Creates a new message instance
@@ -196,27 +195,5 @@ class UserUpdate extends AbstractMessage
     public function getGlobalContactMe(): ?int
     {
         return $this->getParam(self::GLOBAL_CONTACT_ME);
-    }
-
-    /**
-     * Set user's group membership (only for some groups, see included_sup column)
-     *
-     * @param array $groups
-     * @return self
-     */
-    public function setGroups(array $groups): self
-    {
-        $this->setParam(self::GROUPS, $groups);
-        return $this;
-    }
-
-    /**
-     * Get user's group membership (only for some groups, see included_sup column)
-     *
-     * @return null | array
-     */
-    public function getGroups(): ?array
-    {
-        return $this->getParam(self::GROUPS);
     }
 }
