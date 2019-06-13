@@ -98,10 +98,13 @@ abstract class AbstractMessageQueue
     {
         $map = [];
         $ns = '\\Serato\\UserProfileSdk\\Message\\';
-        foreach (glob(realpath(__DIR__ . '/../Message') . '/*.php') as $path) {
-            $type = str_replace('.php', '', substr($path, strrpos($path, '/') + 1));
-            if ($type !== 'AbstractMessage') {
-                $map[$type] = $ns . $type;
+        $paths = glob(realpath(__DIR__ . '/../Message') . '/*.php');
+        if (is_iterable($paths)) {
+            foreach ($paths as $path) {
+                $type = str_replace('.php', '', substr($path, strrpos($path, '/') + 1));
+                if ($type !== 'AbstractMessage') {
+                    $map[$type] = $ns . $type;
+                }
             }
         }
         return $map;
