@@ -109,6 +109,7 @@ class SoftwareDownload extends AbstractMessage
     public function setReleaseType(string $type): self
     {
         $this->setParam(self::RELEASE_TYPE, $type);
+        return $this;
     }
 
     /**
