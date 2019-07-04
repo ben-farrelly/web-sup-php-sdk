@@ -13,16 +13,19 @@ class SoftwareDownloadTest extends PHPUnitTestCase
         $userId = 123;
         $software = 'dj-sub';
         $os = 'mac';
+        $releaseType = 'private_beta';
         $version = '1.9.10';
 
         $softwareDownload = SoftwareDownload::create($userId)
                         ->setSoftwareName($software)
                         ->setOS($os)
+                        ->setReleaseType($releaseType)
                         ->setVersion($version);
 
         $this->assertEquals('SoftwareDownload', $softwareDownload->getType());
         $this->assertEquals($software, $softwareDownload->getSoftwareName());
         $this->assertEquals($os, $softwareDownload->getOS());
         $this->assertEquals($version, $softwareDownload->getVersion());
+        $this->assertEquals($releaseType, $softwareDownload->getReleaseType());
     }
 }
