@@ -101,7 +101,7 @@ class SoftwareDownload extends AbstractMessage
     /**
      * Set the release type of the software download
      *
-     * eg. `release`, `public beta`, `private beta`
+     * eg. `release`, `public_beta`, `private_beta`
      *
      * @param   string  $type
      * @return  self
