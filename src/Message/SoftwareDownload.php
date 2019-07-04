@@ -13,6 +13,7 @@ class SoftwareDownload extends AbstractMessage
     const SOFTWARE_NAME = 'software';
     const VERSION = 'version';
     const OS = 'os';
+    const RELEASE_TYPE = 'release_type';
 
     /**
      * Creates a new message instance
@@ -73,9 +74,9 @@ class SoftwareDownload extends AbstractMessage
     /**
      * Set the version of the software download.
      *
-     * Version is specfied in the format `major.minor.point`.
+     * Version is specified in the format `major.minor.point.build`.
      *
-     * eg. `1.0.1`, `1.20.5`, `2.1.11`
+     * eg. `1.0.1.12321`, `1.20.5.226`, `2.1.11.55`
      *
      * @param   string  $version    Software version
      *
@@ -95,5 +96,28 @@ class SoftwareDownload extends AbstractMessage
     public function getVersion(): ?string
     {
         return $this->getParam(self::VERSION);
+    }
+
+    /**
+     * Set the release type of the software download
+     *
+     * eg. `release`, `public_beta`, `private_beta`
+     *
+     * @param   string  $type
+     * @return  self
+     */
+    public function setReleaseType(string $type): self
+    {
+        $this->setParam(self::RELEASE_TYPE, $type);
+    }
+
+    /**
+     * Get the release type of the software download
+     *
+     * @return null | string
+     */
+    public function getReleaseType(): ?string
+    {
+        return $this->getParam(self::RELEASE_TYPE);
     }
 }
