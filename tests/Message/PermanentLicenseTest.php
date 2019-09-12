@@ -41,6 +41,24 @@ class PermanentLicenseTest extends PHPUnitTestCase
         $this->assertEquals(PermanentLicense::ADD, $permanentLicense->getLicenseAction());
     }
 
+    public function testLicenseAddByParams()
+    {
+        $userId = 123;
+        $licenseTypeId = 63;
+        $licenseId = 'SDJ-4617621-0063-6213-7710';
+
+        $params = ["license-action" => "license-action-add",
+              "license-type-id" => 63,
+              "license-id" => "SDJ-4617621-0063-6213-7710"
+              ];
+        $permanentLicense = PermanentLicense::create($userId, $params);
+
+        $this->assertEquals('PermanentLicense', $permanentLicense->getType());
+        $this->assertEquals($licenseTypeId, $permanentLicense->getLicenseTypeId());
+        $this->assertEquals($licenseId, $permanentLicense->getLicenseId());
+        $this->assertEquals(PermanentLicense::ADD, $permanentLicense->getLicenseAction());
+    }
+
     public function testLicenseExplicitAdd()
     {
         $userId = 123;
@@ -67,6 +85,24 @@ class PermanentLicenseTest extends PHPUnitTestCase
                             ->setLicenseId($licenseId)
                             ->setLicenseAction(PermanentLicense::REMOVE);
 
+        $this->assertEquals($licenseTypeId, $permanentLicense->getLicenseTypeId());
+        $this->assertEquals($licenseId, $permanentLicense->getLicenseId());
+        $this->assertEquals(PermanentLicense::REMOVE, $permanentLicense->getLicenseAction());
+    }
+
+    public function testLicenseRemoveByParams()
+    {
+        $userId = 123;
+        $licenseTypeId = 63;
+        $licenseId = 'SDJ-4617621-0063-6213-7710';
+
+        $params = ["license-action" => "license-action-remove",
+              "license-type-id" => 63,
+              "license-id" => "SDJ-4617621-0063-6213-7710"
+              ];
+        $permanentLicense = PermanentLicense::create($userId, $params);
+
+        $this->assertEquals('PermanentLicense', $permanentLicense->getType());
         $this->assertEquals($licenseTypeId, $permanentLicense->getLicenseTypeId());
         $this->assertEquals($licenseId, $permanentLicense->getLicenseId());
         $this->assertEquals(PermanentLicense::REMOVE, $permanentLicense->getLicenseAction());
