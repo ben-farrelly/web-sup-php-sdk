@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Serato\UserProfileSdk\Message;
 
-use Datetime;
+use DateTime;
 use Serato\UserProfileSdk\Message\AbstractMessage;
 
 /**
@@ -21,7 +21,7 @@ class SoundPackDownload extends AbstractMessage
     {
         parent::__construct($userId, $params);
         if ($this->getDownloadAt() === null) {
-            $this->setDownloadAt((new DateTime())->format(DateTime::ATOM));
+            $this->setDownloadAt((new DateTime('NOW'))->format(DateTime::ATOM));
         }
     }
 
@@ -38,29 +38,29 @@ class SoundPackDownload extends AbstractMessage
     }
 
     /**
-     * Set the name of the sound download
+     * Set the name of the soundPack download
      *
-     * @param string    $sound   Sound name
+     * @param string    $soundPackName   Sound pack name
      * @return self
      */
-    public function setSoundName(string $sound): self
+    public function setSoundPackName(string $soundPackName): self
     {
-        $this->setParam(self::SOUND_PACK_NAME, $sound);
+        $this->setParam(self::SOUND_PACK_NAME, $soundPackName);
         return $this;
     }
 
     /**
-     * Get the name of the sound download
+     * Get the name of the soundPack download
      *
      * @return null | string
      */
-    public function getSoundName(): ?string
+    public function getSoundPackName(): ?string
     {
         return $this->getParam(self::SOUND_PACK_NAME);
     }
 
     /**
-     * Set the download date of the sound download
+     * Set the download date of the soundPack download
      *
      * Date format: DATE_ATOM
      * Example: 2017-08-15T15:52:01+00:00
@@ -75,7 +75,7 @@ class SoundPackDownload extends AbstractMessage
     }
 
     /**
-     * Get the download date of the sound download
+     * Get the download date of the soundPack download
      *
      * @return null | string
      */

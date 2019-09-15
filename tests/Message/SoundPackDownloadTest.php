@@ -15,11 +15,11 @@ class SoundPackDownloadTest extends PHPUnitTestCase
         $downloadAt = "2019-09-16T00:00:00+00:00";
 
         $soundDownload = SoundPackDownload::create($userId)
-                        ->setSoundName($soundPackName)
+                        ->setSoundPackName($soundPackName)
                         ->setDownloadAt($downloadAt);
 
         $this->assertEquals('SoundPackDownload', $soundDownload->getType());
-        $this->assertEquals($soundPackName, $soundDownload->getSoundName());
+        $this->assertEquals($soundPackName, $soundDownload->getSoundPackName());
         $this->assertEquals($downloadAt, $soundDownload->getDownloadAt());
     }
 }
