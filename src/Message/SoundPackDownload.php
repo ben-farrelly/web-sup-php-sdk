@@ -64,7 +64,7 @@ class SoundPackDownload extends AbstractMessage
      *
      * Date format: DATE_ATOM
      * Example: 2017-08-15T15:52:01+00:00
-     * 
+     *
      * @param   string  $date
      * @return  self
      */
