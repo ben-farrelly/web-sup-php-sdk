@@ -19,6 +19,7 @@ script:
 - php vendor/bin/phpunit
 - php vendor/bin/phpunit --group aws-integration
 - "./vendor/bin/phpcs"
+- "./vendor/bin/security-checker security:check"
 after_success:
 addons:
   artifacts:
