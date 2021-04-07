@@ -11,7 +11,7 @@ use Serato\UserProfileSdk\Message\AbstractMessage;
  * This message conveys data about the product purchased in an interactive manner.
  * At this point, it covers any product that has been invoiced from a user driven order,
  * such as those through the Express Checkout.
- * 
+ *
  * In this message we are capturing:
  * - User ID
  * - Product ID
@@ -64,7 +64,7 @@ class InteractivePurchase extends AbstractMessage
 
     /**
      * Set the Order date of the interactive purchase
-     * 
+     *
      * @param string orderDate
      * @return self
      */
@@ -76,7 +76,7 @@ class InteractivePurchase extends AbstractMessage
 
     /**
      * Get the Order date of the interactive purchase
-     * 
+     *
      * @return string
      */
     public function getOrderDate(): string
@@ -86,7 +86,7 @@ class InteractivePurchase extends AbstractMessage
 
     /**
      * Set the Order ID for the interactive purchase
-     * 
+     *
      * @param int $orderId
      * @return self
      */
@@ -98,7 +98,7 @@ class InteractivePurchase extends AbstractMessage
 
     /**
      * Get the Order Id of the interactive purchase
-     * 
+     *
      * @return int
      */
     public function getOrderId(): int
@@ -108,7 +108,7 @@ class InteractivePurchase extends AbstractMessage
 
     /**
      * Set the Invoice ID for the interactive purchase
-     * 
+     *
      * @param int $invoiceId
      * @return self
      */
@@ -120,7 +120,7 @@ class InteractivePurchase extends AbstractMessage
 
     /**
      * Get the invoice Id of the interactive purchase
-     * 
+     *
      * @return int
      */
     public function getInvoiceId(): int
@@ -130,7 +130,7 @@ class InteractivePurchase extends AbstractMessage
 
     /**
      * Set the Price for the interactive purchase
-     * 
+     *
      * @param float $price
      * @return self
      */
@@ -142,7 +142,7 @@ class InteractivePurchase extends AbstractMessage
 
     /**
      * Get the price of the interactive purchase
-     * 
+     *
      * @return float
      */
     public function getPrice(): float

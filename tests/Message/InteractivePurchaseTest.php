@@ -8,7 +8,8 @@ use Serato\UserProfileSdk\Message\InteractivePurchase;
 
 class InteractivePurchaseTest extends PHPUnitTestCase
 {
-    public function testSetters0() {
+    public function testSetters0()
+    {
         $userId = 123;
         $productId = 15;
         $orderDate = '2021-02-02T00:00:00+00:00';
@@ -31,7 +32,8 @@ class InteractivePurchaseTest extends PHPUnitTestCase
         $this->assertEquals($interactivePurchase->getPrice(), $price);
     }
 
-    public function testSetters1() {
+    public function testSetters1()
+    {
         $userId = 124;
         $productId = 16;
         $orderDate = '2021-03-02T00:00:00+00:00';
