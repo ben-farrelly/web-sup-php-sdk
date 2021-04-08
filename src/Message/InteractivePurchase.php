@@ -21,10 +21,10 @@ use Serato\UserProfileSdk\Message\AbstractMessage;
  */
 class InteractivePurchase extends AbstractMessage
 {
-    const PRODUCT_ID = 'product_id';
+    const PRODUCT_IDS = 'product_ids';
     const ORDER_DATE = 'order_date';
     const ORDER_ID = 'order_id';
-    const INVOICE_ID = 'invoice_id';
+    const INVOICE_NUMBER = 'invoice_number';
     const PRICE = 'price';
 
     /**
@@ -42,12 +42,12 @@ class InteractivePurchase extends AbstractMessage
     /**
      * Set the Product ID of the interactive purchase
      *
-     * @param int $productId
+     * @param array $productId
      * @return self
      */
-    public function setProductId(int $productId): self
+    public function setProductIds(array $productIds): self
     {
-        $this->setParam(self::PRODUCT_ID, $productId);
+        $this->setParam(self::PRODUCT_IDS, $productIds);
         return $this;
     }
 
@@ -55,11 +55,11 @@ class InteractivePurchase extends AbstractMessage
     /**
      * Get the Product ID from an interactive purchase
      *
-     * @return int
+     * @return array
      */
-    public function getProductId(): int
+    public function getProductIds(): array
     {
-        return $this->getParam(self::PRODUCT_ID);
+        return $this->getParam(self::PRODUCT_IDS);
     }
 
     /**
@@ -109,12 +109,12 @@ class InteractivePurchase extends AbstractMessage
     /**
      * Set the Invoice ID for the interactive purchase
      *
-     * @param int $invoiceId
+     * @param int $invoiceNumber
      * @return self
      */
-    public function setInvoiceId(int $invoiceId): self
+    public function setInvoiceNumber(int $invoiceNumber): self
     {
-        $this->setParam(self::INVOICE_ID, $invoiceId);
+        $this->setParam(self::INVOICE_NUMBER, $invoiceNumber);
         return $this;
     }
 
@@ -123,9 +123,9 @@ class InteractivePurchase extends AbstractMessage
      *
      * @return int
      */
-    public function getInvoiceId(): int
+    public function getInvoiceNumber(): int
     {
-        return $this->getParam(self::INVOICE_ID);
+        return $this->getParam(self::INVOICE_NUMBER);
     }
 
     /**
