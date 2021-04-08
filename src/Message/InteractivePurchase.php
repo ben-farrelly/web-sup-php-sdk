@@ -107,23 +107,23 @@ class InteractivePurchase extends AbstractMessage
     }
 
     /**
-     * Set the Invoice ID for the interactive purchase
+     * Set the Invoice Number for the interactive purchase
      *
-     * @param int $invoiceNumber
+     * @param string $invoiceNumber
      * @return self
      */
-    public function setInvoiceNumber(int $invoiceNumber): self
+    public function setInvoiceNumber(string $invoiceNumber): self
     {
         $this->setParam(self::INVOICE_NUMBER, $invoiceNumber);
         return $this;
     }
 
     /**
-     * Get the invoice Id of the interactive purchase
+     * Get the Invoice Number of the interactive purchase
      *
-     * @return int
+     * @return string
      */
-    public function getInvoiceNumber(): int
+    public function getInvoiceNumber(): string
     {
         return $this->getParam(self::INVOICE_NUMBER);
     }
