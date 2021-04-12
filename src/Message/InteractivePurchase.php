@@ -21,11 +21,10 @@ use Serato\UserProfileSdk\Message\AbstractMessage;
  */
 class InteractivePurchase extends AbstractMessage
 {
-    const PRODUCT_IDS = 'product_ids';
+    const PRODUCTS = 'products';
     const ORDER_DATE = 'order_date';
     const ORDER_ID = 'order_id';
     const INVOICE_NUMBER = 'invoice_number';
-    const PRICE = 'price';
 
     /**
      * Creates a new message instance
@@ -45,21 +44,20 @@ class InteractivePurchase extends AbstractMessage
      * @param array $productId
      * @return self
      */
-    public function setProductIds(array $productIds): self
+    public function setProducts(array $products): self
     {
-        $this->setParam(self::PRODUCT_IDS, $productIds);
+        $this->setParam(self::PRODUCTS, $products);
         return $this;
     }
-
 
     /**
      * Get the Product ID from an interactive purchase
      *
      * @return array
      */
-    public function getProductIds(): array
+    public function getProducts(): array
     {
-        return $this->getParam(self::PRODUCT_IDS);
+        return $this->getParam(self::PRODUCTS);
     }
 
     /**
@@ -104,49 +102,5 @@ class InteractivePurchase extends AbstractMessage
     public function getOrderId(): int
     {
         return $this->getParam(self::ORDER_ID);
-    }
-
-    /**
-     * Set the Invoice Number for the interactive purchase
-     *
-     * @param string $invoiceNumber
-     * @return self
-     */
-    public function setInvoiceNumber(string $invoiceNumber): self
-    {
-        $this->setParam(self::INVOICE_NUMBER, $invoiceNumber);
-        return $this;
-    }
-
-    /**
-     * Get the Invoice Number of the interactive purchase
-     *
-     * @return string
-     */
-    public function getInvoiceNumber(): string
-    {
-        return $this->getParam(self::INVOICE_NUMBER);
-    }
-
-    /**
-     * Set the Price for the interactive purchase
-     *
-     * @param float $price
-     * @return self
-     */
-    public function setPrice(float $price): self
-    {
-        $this->setParam(self::PRICE, $price);
-        return $this;
-    }
-
-    /**
-     * Get the price of the interactive purchase
-     *
-     * @return float
-     */
-    public function getPrice(): float
-    {
-        return $this->getParam(self::PRICE);
     }
 }

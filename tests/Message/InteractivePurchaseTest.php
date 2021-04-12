@@ -11,50 +11,44 @@ class InteractivePurchaseTest extends PHPUnitTestCase
     public function testSetters0()
     {
         $userId = 123;
-        $productIds = [15, 150];
         $orderDate = '2021-02-02T00:00:00+00:00';
         $orderId = 25;
-        $invoiceNumber = 'S00076239';
-        $price = 50.20;
+        $products = [
+            15  => 50.20,
+            150 => 500.20
+        ];
 
         $interactivePurchase = InteractivePurchase::create($userId)
-                                ->setProductIds($productIds)
+                                ->setProducts($products)
                                 ->setOrderDate($orderDate)
-                                ->setOrderId($orderId)
-                                ->setInvoiceNumber($invoiceNumber)
-                                ->setPrice($price);
+                                ->setOrderId($orderId);
         $this->assertEquals('InteractivePurchase', $interactivePurchase->getType());
         $this->assertEquals($interactivePurchase->getUserId(), $userId);
-        $this->assertEquals($interactivePurchase->getProductIds(), $productIds);
+        $this->assertEquals($interactivePurchase->getProducts(), $products);
         $this->assertEquals($interactivePurchase->getOrderDate(), $orderDate);
         $this->assertEquals($interactivePurchase->getOrderId(), $orderId);
-        $this->assertEquals($interactivePurchase->getInvoiceNumber(), $invoiceNumber);
-        $this->assertEquals($interactivePurchase->getPrice(), $price);
     }
 
     public function testSetters1()
     {
         $userId = 124;
-        $productIds = [16, 162];
         $orderDate = '2021-03-02T00:00:00+00:00';
         $orderId = 26;
-        $invoiceNumber = 'S00077239';
-        $price = 51.20;
+        $products = [
+            16  => 51.20,
+            162 => 510.20
+        ];
 
         $interactivePurchase = InteractivePurchase::create($userId, [
-            "product_ids" => $productIds,
+            "products" => $products,
             "order_date" => $orderDate,
-            "order_id" => $orderId,
-            "invoice_number" => $invoiceNumber,
-            "price" => $price
+            "order_id" => $orderId
         ]);
 
         $this->assertEquals('InteractivePurchase', $interactivePurchase->getType());
         $this->assertEquals($interactivePurchase->getUserId(), $userId);
-        $this->assertEquals($interactivePurchase->getProductIds(), $productIds);
+        $this->assertEquals($interactivePurchase->getProducts(), $products);
         $this->assertEquals($interactivePurchase->getOrderDate(), $orderDate);
         $this->assertEquals($interactivePurchase->getOrderId(), $orderId);
-        $this->assertEquals($interactivePurchase->getInvoiceNumber(), $invoiceNumber);
-        $this->assertEquals($interactivePurchase->getPrice(), $price);
     }
 }
