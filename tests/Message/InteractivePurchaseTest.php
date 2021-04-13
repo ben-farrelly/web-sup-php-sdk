@@ -14,8 +14,14 @@ class InteractivePurchaseTest extends PHPUnitTestCase
         $orderDate = '2021-02-02T00:00:00+00:00';
         $orderId = 25;
         $products = [
-            15  => 50.20,
-            150 => 500.20
+            [
+                "product_id" => 15,
+                "price"      => 50.20
+            ],
+            [
+                "product_id" => 150,
+                "price"      => 500.20
+            ]
         ];
 
         $interactivePurchase = InteractivePurchase::create($userId)
@@ -35,8 +41,14 @@ class InteractivePurchaseTest extends PHPUnitTestCase
         $orderDate = '2021-03-02T00:00:00+00:00';
         $orderId = 26;
         $products = [
-            16  => 51.20,
-            162 => 510.20
+            [
+                "product_id" => 16,
+                "price"      => 50.20
+            ],
+            [
+                "product_id" => 162,
+                "price"      => 501.20
+            ]
         ];
 
         $interactivePurchase = InteractivePurchase::create($userId, [

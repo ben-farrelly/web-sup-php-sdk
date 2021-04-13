@@ -14,17 +14,15 @@ use Serato\UserProfileSdk\Message\AbstractMessage;
  *
  * In this message we are capturing:
  * - User ID
- * - Product ID
+ * - Products
  * - Order Date
  * - Order ID
- * - Invoice Number/Invoice ID
  */
 class InteractivePurchase extends AbstractMessage
 {
     const PRODUCTS = 'products';
     const ORDER_DATE = 'order_date';
     const ORDER_ID = 'order_id';
-    const INVOICE_NUMBER = 'invoice_number';
 
     /**
      * Creates a new message instance
