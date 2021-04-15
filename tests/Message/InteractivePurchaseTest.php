@@ -15,11 +15,11 @@ class InteractivePurchaseTest extends PHPUnitTestCase
         $orderId = 25;
         $products = [
             [
-                "product_id" => 15,
+                "product_type_id" => 15,
                 "price"      => 50.20
             ],
             [
-                "product_id" => 150,
+                "product_type_id" => 150,
                 "price"      => 500.20
             ]
         ];
@@ -42,11 +42,11 @@ class InteractivePurchaseTest extends PHPUnitTestCase
         $orderId = 26;
         $products = [
             [
-                "product_id" => 16,
+                "product_type_id" => 16,
                 "price"      => 50.20
             ],
             [
-                "product_id" => 162,
+                "product_type_id" => 162,
                 "price"      => 501.20
             ]
         ];

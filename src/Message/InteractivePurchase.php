@@ -44,11 +44,11 @@ class InteractivePurchase extends AbstractMessage
      *
      *  [
      *      [
-     *          'product_id' => 145,
+     *          'product_type_id' => 145,
      *          'price'      => 20.0
      *      ],
      *      [
-     *          'product_id' => 146,
+     *          'product_type_id' => 146,
      *          'price'      => 25.50
      *      ]
      *  ]
