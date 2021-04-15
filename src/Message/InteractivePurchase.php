@@ -75,7 +75,7 @@ class InteractivePurchase extends AbstractMessage
     /**
      * Set the Order date of the interactive purchase
      *
-     * @param string orderDate
+     * @param string $orderDate
      * @return self
      */
     public function setOrderDate(string $orderDate): self
