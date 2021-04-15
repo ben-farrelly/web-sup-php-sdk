@@ -39,7 +39,7 @@ class InteractivePurchase extends AbstractMessage
     /**
      * Set the Products of the interactive purchase
      *
-     * The Products should be an associative array containing `product_id` and `price`.
+     * The Products should be an associative array containing `product_type_id` and `price`.
      * Products are expected to follow this schema example:
      *
      *  [
